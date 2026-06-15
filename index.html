@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clutch & Clean Detailing | Mobile Auto Detailing — North Iowa</title>
+<meta name="description" content="Professional mobile interior and exterior auto detailing. We come to you. Bronze, Silver & Gold packages, quick washes, and add-on services. Call 641-525-2532.">
+<meta property="og:title" content="Clutch & Clean Detailing">
+<meta property="og:description" content="Professional mobile auto detailing — we come to you. Call 641-525-2532.">
+<meta property="og:image" content="assets/hero-car.jpg">
+<link rel="icon" type="image/png" href="assets/badge.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0d0d0f;
+  --paper:#ffffff;
+  --red:#d1202a;
+  --red-dark:#a8161f;
+  --gray:#6b7077;
+  --line:#e8e8ea;
+  --bronze1:#b0703c; --bronze2:#e3a76b;
+  --silver1:#8f99a3; --silver2:#d7dde2;
+  --gold1:#c08a1e;   --gold2:#f0c95e;
+  --display:'Big Shoulders Display',sans-serif;
+  --body:'Inter Tight',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.6;font-size:17px}
+img{max-width:100%;display:block}
+a{color:inherit}
+
+/* ---------- racing stripe motif ---------- */
+.stripe{height:10px;background:linear-gradient(to bottom,var(--ink) 0 55%,transparent 55% 65%,var(--red) 65% 100%)}
+
+/* ---------- scroll reveal ---------- */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+.rv-d1{transition-delay:.08s}.rv-d2{transition-delay:.16s}.rv-d3{transition-delay:.24s}
+
+/* ---------- header ---------- */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav{max-width:1180px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.nav img{height:38px;width:auto}
+.nav-links{display:flex;gap:28px;align-items:center;font-weight:600;font-size:15px}
+.nav-links a{text-decoration:none;color:var(--ink);position:relative}
+.nav-links a::after{content:"";position:absolute;left:0;right:100%;bottom:-4px;height:2px;background:var(--red);transition:right .25s ease}
+.nav-links a:hover::after{right:0}
+.btn{display:inline-block;text-decoration:none;font-weight:700;padding:12px 26px;border-radius:4px;font-size:15px;letter-spacing:.02em;transition:transform .15s,background .15s,box-shadow .15s;border:none;cursor:pointer;font-family:var(--body)}
+.btn-red{background:var(--red);color:#fff;position:relative;overflow:hidden}
+.btn-red:hover{background:var(--red-dark);transform:translateY(-2px);box-shadow:0 6px 16px rgba(209,32,42,.3)}
+.btn-red::after{content:"";position:absolute;top:0;left:-80%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg)}
+.btn-red:hover::after{animation:btnshine .7s ease}
+@keyframes btnshine{to{left:140%}}
+.btn-ghost{border:2px solid #fff;color:#fff;background:transparent}
+.btn-ghost:hover{background:#fff;color:var(--ink)}
+a:focus-visible,.btn:focus-visible,button:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+
+/* ---------- hero ---------- */
+.hero{position:relative;background:var(--ink);color:#fff;overflow:hidden}
+.hero-img{position:absolute;inset:0;background:url('assets/hero-car.jpg') center 35%/cover no-repeat;opacity:.45;animation:heroZoom 14s ease-out forwards}
+@keyframes heroZoom{from{transform:scale(1.07)}to{transform:scale(1)}}
+.hero-fade{position:absolute;inset:0;background:linear-gradient(100deg,rgba(13,13,15,.92) 30%,rgba(13,13,15,.35) 75%,rgba(13,13,15,.55))}
+.hero-inner{position:relative;max-width:1180px;margin:0 auto;padding:110px 24px 120px}
+.eyebrow{display:inline-block;font-weight:700;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#fff;background:var(--red);padding:6px 12px;border-radius:3px;margin-bottom:22px}
+h1{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(52px,8vw,104px);line-height:.92;letter-spacing:.01em;max-width:14ch}
+.hero p{margin:24px 0 36px;font-size:19px;max-width:52ch;color:#e6e6e8}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+/* staggered load */
+.hl{opacity:0;transform:translateY(24px);animation:rise .8s ease forwards}
+.hl-1{animation-delay:.1s}.hl-2{animation-delay:.25s}.hl-3{animation-delay:.45s}.hl-4{animation-delay:.6s}
+@keyframes rise{to{opacity:1;transform:none}}
+/* sparkle glints on the paint */
+.spark{position:absolute;width:26px;height:26px;opacity:0;pointer-events:none}
+.spark svg{width:100%;height:100%;fill:#fff}
+.spark-1{top:34%;right:22%;animation:twinkle 6s ease-in-out 2s infinite}
+.spark-2{top:58%;right:38%;width:16px;height:16px;animation:twinkle 6s ease-in-out 4.4s infinite}
+.spark-3{top:24%;right:46%;width:14px;height:14px;animation:twinkle 6s ease-in-out 6.8s infinite}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(.4) rotate(0)}8%{opacity:.95;transform:scale(1) rotate(20deg)}16%{opacity:0;transform:scale(.4) rotate(40deg)}}
+/* floating suds */
+.bub{position:absolute;bottom:-60px;border-radius:50%;background:radial-gradient(circle at 32% 30%,rgba(255,255,255,.5),rgba(255,255,255,.08) 60%,transparent);pointer-events:none;animation:floatUp linear infinite}
+@keyframes floatUp{from{transform:translateY(0)}to{transform:translateY(-120vh)}}
+
+/* ---------- sections ---------- */
+section{padding:90px 24px}
+.wrap{max-width:1180px;margin:0 auto}
+.kicker{font-weight:700;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+h2{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(36px,5vw,58px);line-height:1;margin-bottom:14px}
+.lede{color:var(--gray);max-width:62ch;font-size:18px}
+
+/* ---------- vehicle toggle ---------- */
+.veh-toggle{display:inline-flex;background:#f0f0f2;border:1px solid var(--line);border-radius:6px;padding:4px;margin-top:34px;gap:4px}
+.veh-toggle button{font-family:var(--body);font-weight:600;font-size:15px;border:none;background:transparent;padding:10px 18px;border-radius:4px;cursor:pointer;display:flex;align-items:center;gap:8px;color:var(--gray);transition:all .2s}
+.veh-toggle button svg{width:30px;height:16px;fill:currentColor}
+.veh-toggle button.on{background:var(--ink);color:#fff;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.veh-toggle button:hover:not(.on){color:var(--ink)}
+
+/* ---------- packages ---------- */
+.pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:34px}
+.pkg{border:1px solid var(--line);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.04);transition:transform .25s ease,box-shadow .25s ease}
+.pkg:hover{transform:translateY(-6px);box-shadow:0 14px 32px rgba(0,0,0,.12)}
+.pkg-bar{height:9px;background-size:200% 100%}
+.pkg:hover .pkg-bar{animation:shimmer 1.4s linear infinite}
+@keyframes shimmer{from{background-position:0 0}to{background-position:200% 0}}
+.pkg.bronze .pkg-bar{background-image:linear-gradient(90deg,var(--bronze1),var(--bronze2),var(--bronze1),var(--bronze2))}
+.pkg.silver .pkg-bar{background-image:linear-gradient(90deg,var(--silver1),var(--silver2),var(--silver1),var(--silver2))}
+.pkg.gold .pkg-bar{background-image:linear-gradient(90deg,var(--gold1),var(--gold2),var(--gold1),var(--gold2))}
+.pkg-head{padding:26px 26px 0;display:flex;align-items:baseline;justify-content:space-between}
+.pkg-head h3{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:34px;line-height:1}
+.tier{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 10px;border-radius:3px}
+.bronze .tier{background:linear-gradient(135deg,var(--bronze1),var(--bronze2));color:#3d2510}
+.silver .tier{background:linear-gradient(135deg,var(--silver1),var(--silver2));color:#2b3138}
+.gold .tier{background:linear-gradient(135deg,var(--gold1),var(--gold2));color:#3f2d05}
+.pkg-body{padding:18px 26px 26px;flex:1;display:flex;flex-direction:column}
+.pkg-body .incl{font-size:13px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
+.svc-group{margin-bottom:14px}
+.svc-group h4{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.svc-group ul{list-style:none}
+.svc-group li{padding:3px 0 3px 20px;position:relative;font-size:15.5px}
+.svc-group li::before{content:"";position:absolute;left:0;top:11px;width:10px;height:3px;background:var(--ink)}
+.bigprice{margin-top:auto;border-top:1px solid var(--line);padding-top:18px;display:flex;align-items:baseline;justify-content:space-between}
+.bigprice .lbl{font-size:14px;color:var(--gray);font-weight:600}
+.bigprice .amt{font-family:var(--display);font-weight:800;font-size:44px;line-height:1;font-variant-numeric:tabular-nums}
+.amt.flip,.alc .amt.flip{animation:priceflip .35s ease}
+@keyframes priceflip{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:none}}
+
+/* ---------- a la carte ---------- */
+.alt{background:#f6f6f7}
+.alc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:34px}
+.alc{background:#fff;border:1px solid var(--line);border-radius:8px;padding:28px;display:flex;flex-direction:column;transition:transform .25s ease,box-shadow .25s ease}
+.alc:hover{transform:translateY(-6px);box-shadow:0 14px 32px rgba(0,0,0,.1)}
+.alc h3{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:28px;margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.alc h3 svg{width:34px;height:34px;fill:var(--red);flex:none}
+.alc ul{list-style:none;margin-bottom:18px}
+.alc li{padding:3px 0 3px 20px;position:relative;font-size:15.5px}
+.alc li::before{content:"";position:absolute;left:0;top:11px;width:10px;height:3px;background:var(--red)}
+.alc .bigprice{border-top:1px solid var(--line)}
+.alc .amt{font-size:38px}
+
+/* ---------- add-ons ---------- */
+.addons{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 22px;margin-top:42px}
+.addon{display:flex;align-items:center;gap:16px;padding:18px 20px;border:1px solid var(--line);border-radius:8px;background:#fff;transition:border-color .2s,transform .2s,box-shadow .2s}
+.addon:hover{border-color:var(--red);transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.07)}
+.addon .ic{width:42px;height:42px;flex:none;display:grid;place-items:center;background:#fdeeef;border-radius:8px}
+.addon .ic svg{width:24px;height:24px;fill:var(--red)}
+.addon .nm{flex:1;font-weight:600;font-size:16.5px}
+.addon b{font-variant-numeric:tabular-nums;white-space:nowrap;font-size:17px}
+
+/* ---------- quote builder ---------- */
+.quote-sec{background:var(--ink);color:#fff}
+.quote-sec .kicker{color:#ff5560}
+.qb{display:grid;grid-template-columns:1.4fr 1fr;gap:26px;margin-top:44px;align-items:start}
+.qb-panel{background:#141417;border:1px solid #2a2a2e;border-radius:10px;padding:30px}
+.qb-step{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#ff5560;margin:0 0 12px}
+.qb-step:not(:first-child){margin-top:28px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{font-family:var(--body);font-size:15px;font-weight:600;padding:10px 18px;border-radius:50px;border:1.5px solid #3a3a40;background:transparent;color:#d8d8db;cursor:pointer;transition:all .18s}
+.chip:hover{border-color:#fff;color:#fff}
+.chip.on{background:var(--red);border-color:var(--red);color:#fff;transform:scale(1.04)}
+.chip small{opacity:.7;font-weight:500}
+.qb-total{background:#fff;color:var(--ink);border-radius:10px;padding:30px;position:sticky;top:96px;overflow:hidden}
+.qb-total::after{content:"";position:absolute;left:0;right:0;bottom:0;height:8px;background:linear-gradient(to bottom,var(--ink) 0 40%,var(--red) 40%)}
+.qb-total h3{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:26px;margin-bottom:6px}
+.qb-lines{margin:14px 0;border-top:1px solid var(--line)}
+.qb-line{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:15px}
+.qb-line span:last-child{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.qb-line.muted{color:var(--gray)}
+.qb-sum{display:flex;justify-content:space-between;align-items:baseline;margin:6px 0 4px}
+.qb-sum .t{font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:.08em}
+.qb-sum .n{font-family:var(--display);font-weight:800;font-size:56px;line-height:1;font-variant-numeric:tabular-nums}
+.qb-note{font-size:13px;color:var(--gray);margin-bottom:18px;min-height:18px}
+.qb-total .btn{width:100%;text-align:center;margin-bottom:14px}
+
+/* ---------- about ---------- */
+.about-grid{display:grid;grid-template-columns:1fr 380px;gap:60px;align-items:center}
+.badge-wrap{position:relative;max-width:340px;margin:0 auto}
+.badge-wrap img{width:100%}
+.badge-wrap .spark{opacity:0}
+.badge-wrap .spark svg{fill:var(--red)}
+.bspark-1{top:8%;right:12%;animation:twinkle 7s ease-in-out 1s infinite}
+.bspark-2{bottom:30%;left:4%;width:16px;height:16px;animation:twinkle 7s ease-in-out 4s infinite}
+.about p{margin-bottom:16px;color:#2c2c30}
+
+/* ---------- testimonials ---------- */
+.dark{background:var(--ink);color:#fff}
+.dark .kicker{color:#ff5560}
+.t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px}
+.t-card{border:1px solid #2a2a2e;border-radius:8px;padding:30px 28px 26px;background:#141417;position:relative;transition:transform .25s,border-color .25s}
+.t-card:hover{transform:translateY(-5px);border-color:#55555c}
+.t-card .qmark{font-family:var(--display);font-weight:800;font-size:70px;line-height:.5;color:var(--red);display:block;margin-bottom:18px}
+.t-card p{font-size:15.5px;color:#d8d8db;margin-bottom:18px}
+.t-card cite{font-style:normal;font-weight:700;font-size:14px;color:#ff5560;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:8px}
+.stars{color:var(--gold2);letter-spacing:2px;font-size:13px}
+
+/* ---------- contact ---------- */
+.contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.contact-big{font-family:var(--display);font-weight:800;font-size:clamp(34px,4.5vw,52px);text-transform:uppercase;line-height:1;text-decoration:none;display:block;margin:18px 0 8px;transition:color .2s}
+.contact-big:hover{color:var(--red)}
+.contact a.mail{font-weight:600;text-decoration:none;color:var(--red);word-break:break-all}
+.contact a.mail:hover{text-decoration:underline}
+.socials{margin-top:26px;display:flex;gap:14px}
+.socials a{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid var(--line);padding:10px 16px;border-radius:4px;transition:border-color .2s,color .2s}
+.socials a:hover{border-color:var(--red);color:var(--red)}
+.contact-card{background:var(--ink);color:#fff;border-radius:8px;padding:40px;position:relative;overflow:hidden}
+.contact-card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:8px;background:linear-gradient(to bottom,#fff 0 40%,var(--red) 40%)}
+.contact-card h3{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:30px;margin-bottom:12px}
+.contact-card p{color:#cfcfd3;margin-bottom:24px;font-size:16px}
+
+/* ---------- inquiry form ---------- */
+.form-card{background:var(--ink);color:#fff;border-radius:8px;padding:36px;position:relative;overflow:hidden}
+.form-card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:8px;background:linear-gradient(to bottom,#fff 0 40%,var(--red) 40%)}
+.form-card h3{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:30px;margin-bottom:6px}
+.form-card .sub{color:#cfcfd3;margin-bottom:22px;font-size:15.5px}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.f-field{margin-bottom:14px}
+.f-field label{display:block;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#b9b9bf;margin-bottom:6px}
+.f-field input,.f-field select,.f-field textarea{width:100%;font-family:var(--body);font-size:16px;color:#fff;background:#1d1d21;border:1.5px solid #34343a;border-radius:6px;padding:12px 14px;transition:border-color .2s}
+.f-field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='2' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.f-field textarea{resize:vertical;min-height:96px}
+.f-field input:focus,.f-field select:focus,.f-field textarea:focus{outline:none;border-color:var(--red)}
+.f-field input::placeholder,.f-field textarea::placeholder{color:#6f6f76}
+.form-card .btn{width:100%;text-align:center;font-size:16px;padding:14px}
+.f-status{margin-top:14px;font-size:15px;min-height:22px}
+.f-status.ok{color:#5fd38a;font-weight:600}
+.f-status.err{color:#ff8a91;font-weight:600}
+.f-success{text-align:center;padding:40px 10px}
+.f-success .big{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:34px;margin:14px 0 8px}
+.f-success p{color:#cfcfd3}
+.f-success svg{width:60px;height:60px;fill:#5fd38a}
+.hp{position:absolute;left:-9999px;opacity:0;height:0;width:0}
+
+/* ---------- footer ---------- */
+footer{background:var(--ink);color:#9a9aa0;font-size:14px}
+footer .wrap{padding:28px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;max-width:1180px;margin:0 auto}
+footer img{height:26px;filter:invert(1) brightness(2)}
+
+/* ---------- motion safety ---------- */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rv,.hl{opacity:1;transform:none}
+}
+
+@media(max-width:920px){
+  .nav .btn{padding:10px 14px;font-size:13px;white-space:nowrap}
+  .nav img{height:30px}
+  .nav-links{display:none}
+  .pkg-grid,.alc-grid,.t-grid{grid-template-columns:1fr}
+  .about-grid,.contact .wrap,.qb{grid-template-columns:1fr;gap:36px}
+  .addons{grid-template-columns:1fr}
+  section{padding:64px 20px}
+  .hero-inner{padding:80px 20px 90px}
+  .qb-total{position:static}
+  .veh-toggle{width:100%;justify-content:space-between}
+  .veh-toggle button{flex:1;justify-content:center;padding:10px 6px}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z"/></symbol>
+    <symbol id="i-sedan" viewBox="0 0 64 32"><path d="M8 22h2a5 5 0 0 1 10 0h22a5 5 0 0 1 10 0h4c2 0 3-1 3-3v-3c0-2-1.4-3.4-3.4-3.8L44 10l-7-7c-.8-.8-1.8-1-3-1H22c-1.4 0-2.6.6-3.4 1.6L13 10l-7.6 2.2C3.4 12.8 2 14.4 2 16.4V19c0 2 1.6 3 3 3h3zm7 4a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM21 5h6v5h-11l5-5zm9 0h4l5 5h-9V5z"/></symbol>
+    <symbol id="i-suv" viewBox="0 0 64 32"><path d="M6 23h3a5 5 0 0 1 10 0h26a5 5 0 0 1 10 0h3c2 0 4-1.4 4-3.6V14c0-2.2-1.8-4-4-4h-2L48 3.4A4 4 0 0 0 44.8 2H14c-2.2 0-4 1.8-4 4v4H8c-2.2 0-4 1.8-4 4v5.4C4 21.6 4.8 23 6 23zm8 4a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm36 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM15 5h12v5H15V5zm16 0h13l4 5H31V5z"/></symbol>
+    <symbol id="i-truck" viewBox="0 0 64 32"><path d="M4 23h4a5 5 0 0 1 10 0h18a5 5 0 0 1 10 0h10c2 0 4-1.4 4-3.6V16c0-2-1.4-3.6-3.4-4L46 9.4 40 3c-.8-.8-1.8-1-3-1H8C5.8 2 4 3.8 4 6v17zm9 4a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm28 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM9 5h12v6H9V5zm16 0h10l5 6H25V5z"/></symbol>
+    <symbol id="i-vac" viewBox="0 0 24 24"><path d="M5 20a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0-2a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm14 2h-7.5a4.5 4.5 0 0 0-2-7.7L13 4.5A3.5 3.5 0 0 1 16.4 2h.6a1 1 0 1 1 0 2h-.6c-.7 0-1.3.5-1.5 1.1L11.5 13H17a4 4 0 0 1 4 4v1a2 2 0 0 1-2 2zm-9-9.7z"/><rect x="14" y="16" width="6" height="2" rx="1"/></symbol>
+    <symbol id="i-wax" viewBox="0 0 24 24"><path d="M7 2h7l-1 4h3l-8 9 2-6H7l2-7zM4 19h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm3 3h10a1 1 0 0 1 0 2H7a1 1 0 0 1 0-2z" transform="translate(0 -2)"/></symbol>
+    <symbol id="i-bubbles" viewBox="0 0 24 24"><path d="M8 14a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2.2A3.8 3.8 0 1 0 8 4.2a3.8 3.8 0 0 0 0 7.6zM17.5 16a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9zm0-2.2a2.3 2.3 0 1 0 0-4.6 2.3 2.3 0 0 0 0 4.6zM9.5 22a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7zm0-2.2a1.3 1.3 0 1 0 0-2.6 1.3 1.3 0 0 0 0 2.6z"/></symbol>
+    <symbol id="i-smell" viewBox="0 0 24 24"><path d="M6 3c1.5 2 1.5 4-0 6s-1.5 4 0 6M12 3c1.5 2 1.5 4 0 6s-1.5 4 0 6M18 3c1.5 2 1.5 4 0 6s-1.5 4 0 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M4 21h16a1 1 0 0 0 0-2H4a1 1 0 0 0 0 2z"/></symbol>
+    <symbol id="i-stain" viewBox="0 0 24 24"><path d="M12 2s6 7.4 6 12a6 6 0 1 1-12 0c0-4.6 6-12 6-12zm0 16.5A4.5 4.5 0 0 0 16.5 14c0-2.5-2.6-6.6-4.5-9.2C10.1 7.4 7.5 11.5 7.5 14A4.5 4.5 0 0 0 12 18.5z"/></symbol>
+    <symbol id="i-light" viewBox="0 0 24 24"><path d="M9 21h6v1.5a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 22.5V21zm3-19a7.5 7.5 0 0 1 4.3 13.6c-.7.5-1.3 1.3-1.3 2.2V19H9v-1.2c0-.9-.5-1.7-1.3-2.2A7.5 7.5 0 0 1 12 2zm0 2.3A5.2 5.2 0 0 0 6.8 9.5c0 1.8.9 3.3 2.3 4.3.9.7 1.6 1.6 1.8 2.7h2.2c.2-1.1.9-2 1.8-2.7a5.2 5.2 0 0 0 2.3-4.3A5.2 5.2 0 0 0 12 4.3z"/></symbol>
+    <symbol id="i-engine" viewBox="0 0 24 24"><path d="M7 4h6v2h-2v2h4l2 2h2V8h2v8h-2v-2h-2l-2 2h-2v2H9l-2-2H5v2H3V8h2v2h2V6h2V4H7zm4 6H8.8L7 11.8V14l1.8 2H13v-2h2.2l.8-.8V11l-1-1H11z"/></symbol>
+    <symbol id="i-pet" viewBox="0 0 24 24"><path d="M8.3 9.2a2.4 2.4 0 1 1-2.1-2.7 2.4 2.4 0 0 1 2.1 2.7zm7.4 0a2.4 2.4 0 1 0 2.1-2.7 2.4 2.4 0 0 0-2.1 2.7zM10 6.4a2.4 2.4 0 1 0-2-2.8 2.4 2.4 0 0 0 2 2.8zm4 0a2.4 2.4 0 1 1 2-2.8 2.4 2.4 0 0 1-2 2.8zM12 10c2.6 0 6 3.2 6 6.1 0 1.7-1.3 2.9-3 2.9-1.2 0-2-.5-3-.5s-1.8.5-3 .5c-1.7 0-3-1.2-3-2.9C6 13.2 9.4 10 12 10z"/></symbol>
+    <symbol id="i-clay" viewBox="0 0 24 24"><path d="M4 14c0-3 2.5-5 5.5-5 1.4 0 2.3.4 3.3.9.9.5 1.8.9 3.2.9 1.6 0 2.6-.6 3.4-1.4l1.5 1.6c-1.2 1.2-2.8 2-4.9 2-1.9 0-3.2-.6-4.2-1.1-.9-.4-1.5-.7-2.3-.7-1.8 0-3.3 1.1-3.3 2.8 0 1.8 1.5 2.9 3.4 2.9h10.3v2.2H9.6C6.4 19.1 4 17.1 4 14z"/></symbol>
+    <symbol id="i-hazard" viewBox="0 0 24 24"><path d="M12 2l11 19H1L12 2zm0 4.4L4.9 18.8h14.2L12 6.4zM11 10h2v5h-2v-5zm0 6h2v2h-2v-2z"/></symbol>
+    <symbol id="i-spray" viewBox="0 0 24 24"><path d="M9 8h6c1.1 0 2 .9 2 2v11a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V10c0-1.1.9-2 2-2zm1 2.2V20h4v-9.8h-4zM10 6V4h4v2h-4zm7-3h2v2h-2V3zm3 3h2v2h-2V6zm-3 3h2v2h-2V9z"/></symbol>
+  </defs>
+</svg>
+
+<header>
+  <div class="nav">
+    <a href="#top" aria-label="Clutch and Clean Detailing home"><img src="assets/logo.png" alt="Clutch and Clean — Interior and Exterior Detailing"></a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#packages">Packages</a>
+      <a href="#alacarte">À La Carte</a>
+      <a href="#addons">Add-Ons</a>
+      <a href="#quote">Build a Quote</a>
+      <a href="#about">About</a>
+      <a href="#book">Contact</a>
+    </nav>
+    <a class="btn btn-red" href="tel:6415252532">Call 641-525-2532</a>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero" style="padding:0">
+  <div class="hero-img" role="img" aria-label="Freshly detailed black SUV with a glossy finish"></div>
+  <div class="hero-fade"></div>
+  <span class="spark spark-1" aria-hidden="true"><svg><use href="#i-spark"/></svg></span>
+  <span class="spark spark-2" aria-hidden="true"><svg><use href="#i-spark"/></svg></span>
+  <span class="spark spark-3" aria-hidden="true"><svg><use href="#i-spark"/></svg></span>
+  <div id="suds" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <span class="eyebrow hl hl-1">Mobile Detailing · We Come To You</span>
+    <h1 class="hl hl-2">Your car, detailed in your driveway.</h1>
+    <p class="hl hl-3">Professional interior and exterior auto detailing, delivered right to your doorstep. No drop-offs, no waiting rooms — just a showroom-clean vehicle without leaving home.</p>
+    <div class="hero-ctas hl hl-4">
+      <a class="btn btn-red" href="#quote">Build your quote</a>
+      <a class="btn btn-ghost" href="tel:6415252532">Call or text to book</a>
+    </div>
+  </div>
+</section>
+
+<div class="stripe" aria-hidden="true"></div>
+
+<section id="packages">
+  <div class="wrap">
+    <p class="kicker rv">Detail Packages</p>
+    <h2 class="rv">Pick your finish</h2>
+    <p class="lede rv rv-d1">Three tiers, one standard of work. Every package builds on the one below it. Choose your vehicle to see exact pricing — no surprises.</p>
+
+    <div class="veh-toggle rv rv-d2" role="group" aria-label="Choose vehicle size">
+      <button class="vbtn on" data-v="sedan"><svg aria-hidden="true"><use href="#i-sedan"/></svg>Sedan</button>
+      <button class="vbtn" data-v="mid"><svg aria-hidden="true"><use href="#i-suv"/></svg>Mid-Size SUV</button>
+      <button class="vbtn" data-v="large"><svg aria-hidden="true"><use href="#i-truck"/></svg>Large SUV / Truck</button>
+    </div>
+
+    <div class="pkg-grid">
+      <article class="pkg bronze rv">
+        <div class="pkg-bar"></div>
+        <div class="pkg-head"><h3>Bronze</h3><span class="tier">The Essentials</span></div>
+        <div class="pkg-body">
+          <div class="svc-group"><h4>Exterior</h4>
+            <ul><li>Pre-wash & hand wash</li><li>Clean wheels & tires</li></ul>
+          </div>
+          <div class="svc-group"><h4>Interior</h4>
+            <ul><li>Full interior vacuum</li><li>Wipe down plastic panels & console</li><li>Light seat & carpet treatment</li><li>Interior glass cleaning</li><li>Floor mat restoration</li></ul>
+          </div>
+          <div class="bigprice"><span class="lbl veh-label">Sedan</span><span class="amt" data-prices="200,225,250">$200</span></div>
+        </div>
+      </article>
+
+      <article class="pkg silver rv rv-d1">
+        <div class="pkg-bar"></div>
+        <div class="pkg-head"><h3>Silver</h3><span class="tier">Most Popular</span></div>
+        <div class="pkg-body">
+          <p class="incl">Everything in Bronze, plus:</p>
+          <div class="svc-group"><h4>Exterior</h4>
+            <ul><li>Tire shine application</li></ul>
+          </div>
+          <div class="svc-group"><h4>Interior</h4>
+            <ul><li>Deep clean: panels & console</li><li>Fabric seat shampoo</li></ul>
+          </div>
+          <div class="bigprice"><span class="lbl veh-label">Sedan</span><span class="amt" data-prices="245,270,295">$245</span></div>
+        </div>
+      </article>
+
+      <article class="pkg gold rv rv-d2">
+        <div class="pkg-bar"></div>
+        <div class="pkg-head"><h3>Gold</h3><span class="tier">Full Treatment</span></div>
+        <div class="pkg-body">
+          <p class="incl">Everything in Silver, plus:</p>
+          <div class="svc-group"><h4>Exterior</h4>
+            <ul><li>Spray wax — shine & protection</li></ul>
+          </div>
+          <div class="svc-group"><h4>Interior</h4>
+            <ul><li>Leather conditioning</li><li>Plastic surface protection</li></ul>
+          </div>
+          <div class="bigprice"><span class="lbl veh-label">Sedan</span><span class="amt" data-prices="290,315,340">$290</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="alacarte" class="alt">
+  <div class="wrap">
+    <p class="kicker rv">À La Carte</p>
+    <h2 class="rv">Just what you need</h2>
+    <p class="lede rv rv-d1">Don't need the full package? Pick one side of the job — or grab a quick refresh between details. Prices follow the vehicle you selected above.</p>
+
+    <div class="alc-grid">
+      <article class="alc rv">
+        <h3><svg aria-hidden="true"><use href="#i-vac"/></svg>Interior Only</h3>
+        <ul>
+          <li>Deep vacuuming — dust & debris</li>
+          <li>Floor mat restoration</li>
+          <li>Light stain removal</li>
+          <li>Interior glass cleaning</li>
+          <li>Wipe down of panels & console</li>
+          <li>Leather conditioning (as needed)</li>
+          <li>Plastic surface protection</li>
+        </ul>
+        <div class="bigprice"><span class="lbl veh-label">Sedan</span><span class="amt" data-prices="165,175,185">$165</span></div>
+      </article>
+
+      <article class="alc rv rv-d1">
+        <h3><svg aria-hidden="true"><use href="#i-spray"/></svg>Exterior Only</h3>
+        <ul>
+          <li>Pre-wash & hand wash</li>
+          <li>Clean wheels & tires</li>
+          <li>Tire shine application</li>
+          <li>Spray wax — shine & protection</li>
+        </ul>
+        <div class="bigprice"><span class="lbl veh-label">Sedan</span><span class="amt" data-prices="150,165,180">$150</span></div>
+      </article>
+
+      <article class="alc rv rv-d2">
+        <h3><svg aria-hidden="true"><use href="#i-bubbles"/></svg>Quick Wash & Vac</h3>
+        <ul>
+          <li>Exterior hand wash</li>
+          <li>Vacuum + wipe down</li>
+        </ul>
+        <div class="bigprice"><span class="lbl veh-label">Sedan</span><span class="amt" data-prices="75,90,100">$75</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="addons">
+  <div class="wrap">
+    <p class="kicker rv">Add-On Services</p>
+    <h2 class="rv">Finish it off</h2>
+    <p class="lede rv rv-d1">Stack any of these onto a package or à la carte service.</p>
+    <div class="addons">
+      <div class="addon rv"><span class="ic"><svg aria-hidden="true"><use href="#i-smell"/></svg></span><span class="nm">Odor / smoke elimination</span><b>$50</b></div>
+      <div class="addon rv"><span class="ic"><svg aria-hidden="true"><use href="#i-stain"/></svg></span><span class="nm">Stain removal</span><b>$25–$60</b></div>
+      <div class="addon rv rv-d1"><span class="ic"><svg aria-hidden="true"><use href="#i-light"/></svg></span><span class="nm">Headlight restoration</span><b>$60</b></div>
+      <div class="addon rv rv-d1"><span class="ic"><svg aria-hidden="true"><use href="#i-engine"/></svg></span><span class="nm">Engine bay cleaning</span><b>$75</b></div>
+      <div class="addon rv rv-d2"><span class="ic"><svg aria-hidden="true"><use href="#i-pet"/></svg></span><span class="nm">Pet hair removal</span><b>$25–$50</b></div>
+      <div class="addon rv rv-d2"><span class="ic"><svg aria-hidden="true"><use href="#i-clay"/></svg></span><span class="nm">Clay bar treatment</span><b>$75–$100</b></div>
+      <div class="addon rv rv-d3"><span class="ic"><svg aria-hidden="true"><use href="#i-hazard"/></svg></span><span class="nm">Hazardous conditions</span><b>Price varies</b></div>
+    </div>
+  </div>
+</section>
+
+<section class="quote-sec" id="quote">
+  <div class="wrap">
+    <p class="kicker rv">Instant Quote</p>
+    <h2 class="rv">Build your detail</h2>
+    <p class="lede rv rv-d1" style="color:#b9b9bf">Tap your way to a price in ten seconds, then text it straight to us to book.</p>
+
+    <div class="qb">
+      <div class="qb-panel rv">
+        <p class="qb-step">1 · Your vehicle</p>
+        <div class="chips" id="q-veh">
+          <button class="chip on" data-v="sedan">Sedan</button>
+          <button class="chip" data-v="mid">Mid-Size SUV</button>
+          <button class="chip" data-v="large">Large SUV / Truck</button>
+        </div>
+
+        <p class="qb-step">2 · Your service</p>
+        <div class="chips" id="q-svc">
+          <button class="chip" data-s="bronze">Bronze Package</button>
+          <button class="chip on" data-s="silver">Silver Package</button>
+          <button class="chip" data-s="gold">Gold Package</button>
+          <button class="chip" data-s="interior">Interior Only</button>
+          <button class="chip" data-s="exterior">Exterior Only</button>
+          <button class="chip" data-s="quick">Quick Wash & Vac</button>
+        </div>
+
+        <p class="qb-step">3 · Add-ons <small style="text-transform:none;letter-spacing:0;color:#8a8a90">(optional — tap to toggle)</small></p>
+        <div class="chips" id="q-add">
+          <button class="chip" data-a="odor">Odor / smoke <small>$50</small></button>
+          <button class="chip" data-a="stain">Stain removal <small>from $25</small></button>
+          <button class="chip" data-a="headlight">Headlights <small>$60</small></button>
+          <button class="chip" data-a="engine">Engine bay <small>$75</small></button>
+          <button class="chip" data-a="pet">Pet hair <small>from $25</small></button>
+          <button class="chip" data-a="clay">Clay bar <small>from $75</small></button>
+        </div>
+      </div>
+
+      <aside class="qb-total rv rv-d1" aria-live="polite">
+        <h3>Your Quote</h3>
+        <div class="qb-lines" id="q-lines"></div>
+        <div class="qb-sum"><span class="t" id="q-total-label">Total</span><span class="n" id="q-total">$0</span></div>
+        <p class="qb-note" id="q-note"></p>
+        <a class="btn btn-red" id="q-send" href="#book">Send quote to Reed</a>
+        <a id="q-text" href="sms:6415252532" style="display:block;text-align:center;font-weight:600;font-size:14px;color:var(--ink);margin-bottom:12px">Prefer to text it? Tap here</a>
+        <p style="font-size:13px;color:var(--gray)">Or call <a href="tel:6415252532" style="color:var(--ink);font-weight:700;text-decoration:none">641-525-2532</a> — we'll take it from there.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="alt">
+  <div class="wrap about-grid">
+    <div class="about">
+      <p class="kicker rv">About</p>
+      <h2 class="rv">Meet Reed Kruger</h2>
+      <p class="rv rv-d1">At Clutch & Clean Detailing, a clean car isn't just about appearance — it's about peace of mind. Detailing started as a hobby for Reed: the crisp look, the fresh interior smell, the satisfaction of bringing a car back to its best self. That hobby became a passion, and that passion became a mission — helping people feel good about their vehicles no matter how hectic life gets.</p>
+      <p class="rv rv-d2">We all have those crazy days. Work piles up, errands run long, the kids spill something in the back seat — and the last thing anyone wants to figure out is when they'll find time to clean the car. That's where Clutch & Clean comes in: high-quality, convenient, mobile, and reliable.</p>
+      <p class="rv rv-d3">Whether it's a full detail or a quick touch-up, we show up ready to make your car feel brand new. Fast, friendly, and always thorough.</p>
+    </div>
+    <div class="badge-wrap rv rv-d1">
+      <img src="assets/badge.png" alt="Clutch and Clean badge — red classic car illustration">
+      <span class="spark bspark-1" aria-hidden="true"><svg><use href="#i-spark"/></svg></span>
+      <span class="spark bspark-2" aria-hidden="true"><svg><use href="#i-spark"/></svg></span>
+    </div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="wrap">
+    <p class="kicker rv">Testimonials</p>
+    <h2 class="rv">Word around town</h2>
+    <div class="t-grid">
+      <blockquote class="t-card rv">
+        <span class="qmark" aria-hidden="true">"</span>
+        <p>I didn't realize how rough my car's paint had become until the clay bar treatment. The difference was insane — smoother than when I bought it. Right on time, done within an hour, flawless results.</p>
+        <cite><span class="stars" aria-label="Five stars">★★★★★</span> Delighted Customer</cite>
+      </blockquote>
+      <blockquote class="t-card rv rv-d1">
+        <span class="qmark" aria-hidden="true">"</span>
+        <p>I was thinking about replacing my foggy headlights, but Clutch & Clean made them crystal clear in no time. They came right to my driveway and had my lights looking brand new in under an hour.</p>
+        <cite><span class="stars" aria-label="Five stars">★★★★★</span> Satisfied Client</cite>
+      </blockquote>
+      <blockquote class="t-card rv rv-d2">
+        <span class="qmark" aria-hidden="true">"</span>
+        <p>Hands down the best detail I've ever gotten. They came right to my office — interior, exterior, tire shine, wax, conditioned seats. My car looked fresh off the lot in about two hours.</p>
+        <cite><span class="stars" aria-label="Five stars">★★★★★</span> Happy Customer</cite>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div>
+      <p class="kicker rv">Book a Detail</p>
+      <h2 class="rv">Ready when you are</h2>
+      <p class="lede rv rv-d1">Call, text, or email — we'll get you on the schedule and come to you.</p>
+      <a class="contact-big rv rv-d1" href="tel:6415252532">641-525-2532</a>
+      <a class="mail rv rv-d2" href="mailto:Clutchandcleandetailers@gmail.com">Clutchandcleandetailers@gmail.com</a>
+      <div class="socials rv rv-d2">
+        <a href="https://www.instagram.com/clutchandcleandetailing" target="_blank" rel="noopener">Instagram → @clutchandcleandetailing</a>
+      </div>
+    </div>
+    <div class="form-card rv rv-d2" id="book">
+      <div id="form-wrap">
+        <h3>Send an inquiry</h3>
+        <p class="sub">Fill this out and it goes straight to Reed — he'll get back to you to lock in a time.</p>
+        <form id="inquiry" novalidate>
+          <div class="f-row">
+            <div class="f-field">
+              <label for="f-name">Name *</label>
+              <input id="f-name" name="name" type="text" required autocomplete="name" placeholder="Your name">
+            </div>
+            <div class="f-field">
+              <label for="f-phone">Phone *</label>
+              <input id="f-phone" name="phone" type="tel" required autocomplete="tel" placeholder="(641) 555-0123">
+            </div>
+          </div>
+          <div class="f-field">
+            <label for="f-email">Email</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" placeholder="you@example.com (optional)">
+          </div>
+          <div class="f-row">
+            <div class="f-field">
+              <label for="f-veh">Vehicle</label>
+              <select id="f-veh" name="vehicle">
+                <option>Sedan</option>
+                <option>Mid-Size SUV</option>
+                <option>Large SUV / Truck</option>
+              </select>
+            </div>
+            <div class="f-field">
+              <label for="f-svc">Service</label>
+              <select id="f-svc" name="service">
+                <option>Not sure yet</option>
+                <option>Bronze Package</option>
+                <option>Silver Package</option>
+                <option>Gold Package</option>
+                <option>Interior Only</option>
+                <option>Exterior Only</option>
+                <option>Quick Wash &amp; Vac</option>
+              </select>
+            </div>
+          </div>
+          <div class="f-field">
+            <label for="f-msg">Anything else?</label>
+            <textarea id="f-msg" name="message" placeholder="Add-ons you want, where you're parked, preferred days…"></textarea>
+          </div>
+          <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="btn btn-red" type="submit" id="f-submit">Send inquiry to Reed</button>
+          <p class="f-status" id="f-status" role="status"></p>
+        </form>
+      </div>
+      <div class="f-success" id="form-done" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.5L6.5 12.2l1.7-1.7 2.6 2.6 5-5 1.7 1.7-6.7 6.7z"/></svg>
+        <p class="big">Inquiry sent!</p>
+        <p>Reed has your details and will reach out shortly.<br>Need it faster? Call or text <a href="tel:6415252532" style="color:#fff;font-weight:700">641-525-2532</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<div class="stripe" aria-hidden="true"></div>
+<footer>
+  <div class="wrap">
+    <img src="assets/logo.png" alt="Clutch and Clean Detailing">
+    <span>© 2026 R. Kruger · Clutch & Clean Detailing · Mobile interior & exterior auto detailing</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- scroll reveal ---------- */
+  var els = document.querySelectorAll('.rv');
+  if(reduce || !('IntersectionObserver' in window)){
+    els.forEach(function(e){e.classList.add('in')});
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}
+      });
+    },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+    els.forEach(function(e){io.observe(e)});
+  }
+
+  /* ---------- floating suds in hero ---------- */
+  if(!reduce){
+    var suds = document.getElementById('suds');
+    for(var i=0;i<10;i++){
+      var b = document.createElement('span');
+      b.className='bub';
+      var s = 8+Math.random()*26;
+      b.style.width=b.style.height=s+'px';
+      b.style.left=(Math.random()*100)+'%';
+      b.style.animationDuration=(11+Math.random()*12)+'s';
+      b.style.animationDelay=(Math.random()*12)+'s';
+      b.style.opacity=(0.12+Math.random()*0.18).toFixed(2);
+      suds.appendChild(b);
+    }
+  }
+
+  /* ---------- shared price data ---------- */
+  var VEH_IDX = {sedan:0, mid:1, large:2};
+  var VEH_NAME = {sedan:'Sedan', mid:'Mid-Size SUV', large:'Large SUV / Truck'};
+  var SVC = {
+    bronze:  {name:'Bronze Package',   p:[200,225,250]},
+    silver:  {name:'Silver Package',   p:[245,270,295]},
+    gold:    {name:'Gold Package',     p:[290,315,340]},
+    interior:{name:'Interior Only',    p:[165,175,185]},
+    exterior:{name:'Exterior Only',    p:[150,165,180]},
+    quick:   {name:'Quick Wash & Vac', p:[75,90,100]}
+  };
+  var ADD = {
+    odor:     {name:'Odor / smoke elimination', lo:50,  hi:50},
+    stain:    {name:'Stain removal',            lo:25,  hi:60},
+    headlight:{name:'Headlight restoration',    lo:60,  hi:60},
+    engine:   {name:'Engine bay cleaning',      lo:75,  hi:75},
+    pet:      {name:'Pet hair removal',         lo:25,  hi:50},
+    clay:     {name:'Clay bar treatment',       lo:75,  hi:100}
+  };
+
+  /* ---------- vehicle toggle (packages + a la carte) ---------- */
+  function setVehicle(v){
+    document.querySelectorAll('.vbtn').forEach(function(b){
+      b.classList.toggle('on', b.dataset.v===v);
+    });
+    var idx = VEH_IDX[v];
+    document.querySelectorAll('.amt[data-prices]').forEach(function(a){
+      var prices = a.dataset.prices.split(',');
+      a.textContent = '$'+prices[idx];
+      if(!reduce){
+        a.classList.remove('flip'); void a.offsetWidth; a.classList.add('flip');
+      }
+    });
+    document.querySelectorAll('.veh-label').forEach(function(l){
+      l.textContent = VEH_NAME[v];
+    });
+  }
+  document.querySelectorAll('.vbtn').forEach(function(b){
+    b.addEventListener('click',function(){ setVehicle(b.dataset.v); });
+  });
+
+  /* ---------- quote builder ---------- */
+  var state = {veh:'sedan', svc:'silver', adds:{}};
+
+  function chipGroup(id, attr, single, cb){
+    document.querySelectorAll('#'+id+' .chip').forEach(function(c){
+      c.addEventListener('click',function(){
+        if(single){
+          document.querySelectorAll('#'+id+' .chip').forEach(function(x){x.classList.remove('on')});
+          c.classList.add('on');
+        } else {
+          c.classList.toggle('on');
+        }
+        cb(c.dataset[attr], c.classList.contains('on'));
+      });
+    });
+  }
+
+  chipGroup('q-veh','v',true,function(v){ state.veh=v; render(); });
+  chipGroup('q-svc','s',true,function(s){ state.svc=s; render(); });
+  chipGroup('q-add','a',false,function(a,on){ state.adds[a]=on; render(); });
+
+  var elLines = document.getElementById('q-lines'),
+      elTotal = document.getElementById('q-total'),
+      elLabel = document.getElementById('q-total-label'),
+      elNote  = document.getElementById('q-note'),
+      elText  = document.getElementById('q-text');
+  var shownTotal = 0;
+  var lastQuote = null;
+
+  function render(){
+    var idx = VEH_IDX[state.veh];
+    var svc = SVC[state.svc];
+    var lo = svc.p[idx], hi = svc.p[idx];
+    var html = '<div class="qb-line muted"><span>'+VEH_NAME[state.veh]+'</span><span></span></div>';
+    html += '<div class="qb-line"><span>'+svc.name+'</span><span>$'+svc.p[idx]+'</span></div>';
+    var ranged = false;
+    var parts = [svc.name];
+    for(var k in state.adds){
+      if(!state.adds[k]) continue;
+      var a = ADD[k];
+      lo += a.lo; hi += a.hi;
+      if(a.lo !== a.hi) ranged = true;
+      html += '<div class="qb-line"><span>+ '+a.name+'</span><span>'+(a.lo===a.hi?'$'+a.lo:'$'+a.lo+'–$'+a.hi)+'</span></div>';
+      parts.push(a.name);
+    }
+    elLines.innerHTML = html;
+    elLabel.textContent = ranged ? 'Starting at' : 'Total';
+    elNote.textContent = ranged ? 'Final add-on pricing confirmed on-site based on condition.' : '';
+
+    animateTotal(lo);
+
+    var msg = "Hi! I'd like to book a detail.\n"
+      + "Vehicle: " + VEH_NAME[state.veh] + "\n"
+      + "Service: " + parts.join(' + ') + "\n"
+      + "Quoted: " + (ranged ? 'starting at ' : '') + '$' + lo;
+    elText.href = 'sms:6415252532?&body=' + encodeURIComponent(msg);
+    lastQuote = {
+      veh: VEH_NAME[state.veh],
+      svc: SVC[state.svc].name,
+      adds: parts.slice(1),
+      price: (ranged ? 'starting at ' : '') + '$' + lo
+    };
+  }
+
+  function animateTotal(target){
+    if(reduce){ elTotal.textContent = '$'+target; shownTotal = target; return; }
+    var start = shownTotal, t0 = null, dur = 380;
+    function step(ts){
+      if(!t0) t0 = ts;
+      var p = Math.min((ts-t0)/dur, 1);
+      p = 1-Math.pow(1-p,3);
+      elTotal.textContent = '$'+Math.round(start+(target-start)*p);
+      if(p<1) requestAnimationFrame(step); else shownTotal = target;
+    }
+    requestAnimationFrame(step);
+  }
+
+  render();
+
+  /* ---------- quote → inquiry form bridge ---------- */
+  document.getElementById('q-send').addEventListener('click', function(){
+    if(!lastQuote) return;
+    var vehSel = document.getElementById('f-veh');
+    var svcSel = document.getElementById('f-svc');
+    var msgBox = document.getElementById('f-msg');
+    vehSel.value = lastQuote.veh;
+    for(var i=0;i<svcSel.options.length;i++){
+      if(svcSel.options[i].text.replace('&','&') === lastQuote.svc){ svcSel.selectedIndex = i; break; }
+    }
+    var lines = [];
+    if(lastQuote.adds.length) lines.push('Add-ons: ' + lastQuote.adds.join(', '));
+    lines.push('Quoted on site: ' + lastQuote.price);
+    msgBox.value = lines.join('\n');
+    /* anchor link handles the scroll to #book */
+  });
+
+  /* ---------- inquiry form (Formspree) ---------- */
+  var FORM_ENDPOINT = 'https://formspree.io/f/maqzazkw'; /* Clutch & Clean inquiries → Clutchandcleandetailers@gmail.com */
+  var form = document.getElementById('inquiry'),
+      status = document.getElementById('f-status'),
+      submitBtn = document.getElementById('f-submit');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    status.className = 'f-status';
+    var name = document.getElementById('f-name').value.trim();
+    var phone = document.getElementById('f-phone').value.trim();
+    if(!name || !phone){
+      status.textContent = 'Please add your name and phone number so Reed can reach you.';
+      status.classList.add('err');
+      return;
+    }
+    var data = new FormData(form);
+    data.append('_subject', 'New detail inquiry — ' + name);
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+    fetch(FORM_ENDPOINT, {
+      method:'POST',
+      body:data,
+      headers:{'Accept':'application/json'}
+    }).then(function(r){
+      if(r.ok){
+        document.getElementById('form-wrap').hidden = true;
+        document.getElementById('form-done').hidden = false;
+      } else { throw new Error('bad status'); }
+    }).catch(function(){
+      status.textContent = "Couldn't send right now — please call or text 641-525-2532 instead.";
+      status.classList.add('err');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send inquiry to Reed';
+    });
+  });
+})();
+</script>
+</body>
+</html>
