@@ -235,6 +235,34 @@ h2{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size
 footer{background:var(--ink);color:#9a9aa0;font-size:14px}
 footer .wrap{padding:28px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;max-width:1180px;margin:0 auto}
 footer img{height:26px;filter:invert(1) brightness(2)}
+.foot-legal{display:flex;align-items:center;gap:10px}
+.foot-legal .dot{color:#55555c}
+.legal-link{color:#cfcfd3;text-decoration:none;font-weight:600;cursor:pointer;background:none;border:none;font-family:var(--body);font-size:14px}
+.legal-link:hover{color:#fff;text-decoration:underline}
+
+/* ---------- legal modals ---------- */
+.modal{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:24px}
+.modal[hidden]{display:none}
+.modal-backdrop{position:absolute;inset:0;background:rgba(10,10,12,.72);backdrop-filter:blur(3px);animation:fade .25s ease}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.modal-box{position:relative;background:#fff;color:var(--ink);max-width:640px;width:100%;max-height:84vh;overflow-y:auto;border-radius:10px;padding:40px 40px 36px;box-shadow:0 24px 60px rgba(0,0,0,.4);animation:pop .28s ease}
+@keyframes pop{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
+.modal-box::before{content:"";position:absolute;top:0;left:0;right:0;height:7px;border-radius:10px 10px 0 0;background:linear-gradient(to right,var(--ink) 0 50%,var(--red) 50%)}
+.modal-x{position:absolute;top:16px;right:18px;background:none;border:none;font-size:30px;line-height:1;color:var(--gray);cursor:pointer;padding:4px 8px}
+.modal-x:hover{color:var(--red)}
+.modal-box h3{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:34px;margin:6px 0 2px}
+.modal-date{color:var(--gray);font-size:13px;margin-bottom:18px}
+.modal-box h4{font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--red);margin:20px 0 6px}
+.modal-box p{font-size:15.5px;margin-bottom:10px;color:#2c2c30}
+.modal-box a{color:var(--red);font-weight:600}
+
+@media(max-width:920px){
+  footer .wrap{justify-content:center;text-align:center}
+  .modal-box{padding:34px 24px 28px}
+  .modal-box h3{font-size:28px}
+}
+
+/* ---------- footer-end ---------- */
 
 /* ---------- motion safety ---------- */
 @media (prefers-reduced-motion:reduce){
@@ -603,9 +631,57 @@ footer img{height:26px;filter:invert(1) brightness(2)}
 <footer>
   <div class="wrap">
     <img src="assets/logo.png" alt="Clutch and Clean Detailing">
-    <span>© 2026 R. Kruger · Clutch & Clean Detailing · Mobile interior & exterior auto detailing</span>
+    <span class="foot-legal">
+      <a href="#privacy" class="legal-link" data-modal="privacy">Privacy Policy</a>
+      <span class="dot">·</span>
+      <a href="#disclaimer" class="legal-link" data-modal="disclaimer">Disclaimer</a>
+    </span>
+    <span>© 2026 R. Kruger · Clutch &amp; Clean Detailing · Mobile interior &amp; exterior auto detailing</span>
   </div>
 </footer>
+
+<div class="modal" id="privacy" hidden>
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="privacy-h">
+    <button class="modal-x" data-close aria-label="Close">&times;</button>
+    <h3 id="privacy-h">Privacy Policy</h3>
+    <p class="modal-date">Last updated June 2026</p>
+    <p>Clutch &amp; Clean Detailing ("we," "us") respects your privacy. This policy explains what we collect through this website and how we use it.</p>
+    <h4>What we collect</h4>
+    <p>When you submit the inquiry form, we collect the information you provide — your name, phone number, and, if you choose to share them, your email address and details about your vehicle and the service you want. We do not collect payment information through this website.</p>
+    <h4>How we use it</h4>
+    <p>We use your information for one purpose: to respond to your inquiry and schedule your detailing service. Form submissions are delivered to us by email through Formspree, a third-party form provider. We do not sell, rent, or share your information with anyone for marketing purposes.</p>
+    <h4>Third-party services</h4>
+    <p>This site is hosted on Cloudflare Pages and uses Formspree to process form submissions. Each provider handles your data under its own privacy policy. We load fonts from Google Fonts, which may receive standard request information such as your IP address.</p>
+    <h4>Cookies &amp; tracking</h4>
+    <p>This website does not use advertising cookies or tracking pixels.</p>
+    <h4>Your choices</h4>
+    <p>You can contact us at any time to ask what information we hold or to request that we delete it. Reach us at <a href="mailto:Clutchandcleandetailers@gmail.com">Clutchandcleandetailers@gmail.com</a> or 641-525-2532.</p>
+    <h4>Changes</h4>
+    <p>We may update this policy from time to time. The "last updated" date above reflects the most recent revision.</p>
+  </div>
+</div>
+
+<div class="modal" id="disclaimer" hidden>
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="disc-h">
+    <button class="modal-x" data-close aria-label="Close">&times;</button>
+    <h3 id="disc-h">Disclaimer</h3>
+    <p class="modal-date">Last updated June 2026</p>
+    <h4>Pricing &amp; quotes</h4>
+    <p>All prices listed on this website are starting estimates and may vary based on the size, condition, and contents of your vehicle. Quotes generated by the on-site quote builder are estimates only and are not a binding offer. Final pricing is confirmed in person before any work begins. Add-on services priced as a range are confirmed on-site based on the vehicle's condition.</p>
+    <h4>Service results</h4>
+    <p>We take pride in thorough, professional work, but results can depend on a vehicle's age, materials, prior damage, and the nature of any stains, odors, or contaminants. We cannot guarantee the complete removal of every stain, odor, scratch, or imperfection, and some conditions may be permanent. We will always communicate honestly about what we expect to achieve before starting.</p>
+    <h4>Customer responsibility</h4>
+    <p>Please remove personal belongings and valuables from your vehicle before your appointment. Clutch &amp; Clean Detailing is not responsible for lost, damaged, or forgotten personal items left in the vehicle.</p>
+    <h4>Scheduling</h4>
+    <p>Submitting the inquiry form or a quote does not confirm a booking. An appointment is only confirmed once we have spoken with you directly to arrange a date, time, and location.</p>
+    <h4>Testimonials</h4>
+    <p>Customer testimonials shown on this site reflect individual experiences and are not a guarantee of any specific outcome.</p>
+    <h4>Contact</h4>
+    <p>Questions about this disclaimer? Reach us at <a href="mailto:Clutchandcleandetailers@gmail.com">Clutchandcleandetailers@gmail.com</a> or 641-525-2532.</p>
+  </div>
+</div>
 
 <script>
 (function(){
@@ -778,7 +854,7 @@ footer img{height:26px;filter:invert(1) brightness(2)}
   });
 
   /* ---------- inquiry form (Formspree) ---------- */
-  var FORM_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID'; /* paste Reed's Formspree form ID here */
+  var FORM_ENDPOINT = 'https://formspree.io/f/maqzazkw'; /* Clutch & Clean inquiries → Clutchandcleandetailers@gmail.com */
   var form = document.getElementById('inquiry'),
       status = document.getElementById('f-status'),
       submitBtn = document.getElementById('f-submit');
@@ -813,7 +889,30 @@ footer img{height:26px;filter:invert(1) brightness(2)}
       submitBtn.textContent = 'Send inquiry to Reed';
     });
   });
-})();
-</script>
+  /* ---------- legal modals ---------- */
+  var lastFocus = null;
+  function openModal(id){
+    var m = document.getElementById(id);
+    if(!m) return;
+    lastFocus = document.activeElement;
+    m.hidden = false;
+    document.body.style.overflow = 'hidden';
+    var x = m.querySelector('.modal-x'); if(x) x.focus();
+  }
+  function closeModals(){
+    document.querySelectorAll('.modal').forEach(function(m){ m.hidden = true; });
+    document.body.style.overflow = '';
+    if(lastFocus) lastFocus.focus();
+  }
+  document.querySelectorAll('.legal-link').forEach(function(l){
+    l.addEventListener('click', function(e){ e.preventDefault(); openModal(l.dataset.modal); });
+  });
+  document.querySelectorAll('[data-close]').forEach(function(el){
+    el.addEventListener('click', closeModals);
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeModals();
+  });
+})();</script>
 </body>
 </html>
