@@ -148,6 +148,16 @@ h2{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size
 .addon .nm{flex:1;font-weight:600;font-size:16.5px}
 .addon b{font-variant-numeric:tabular-nums;white-space:nowrap;font-size:17px}
 
+/* ---------- custom-quote callout ---------- */
+.callout{background:var(--ink);color:#fff;border-radius:10px;padding:38px 40px;display:flex;align-items:center;gap:30px;position:relative;overflow:hidden;margin-top:8px}
+.callout::before{content:"";position:absolute;top:0;left:0;bottom:0;width:8px;background:linear-gradient(to bottom,var(--red),var(--red-dark))}
+.callout .co-ic{flex:none;width:64px;height:64px;display:grid;place-items:center;background:#1d1d21;border-radius:12px}
+.callout .co-ic svg{width:36px;height:36px;fill:var(--red)}
+.callout h3{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:30px;line-height:1;margin-bottom:8px}
+.callout p{color:#cfcfd3;font-size:16px;max-width:70ch}
+.callout .co-cta{flex:none;margin-left:auto}
+@media(max-width:920px){.callout{flex-direction:column;text-align:center;padding:32px 22px}.callout .co-cta{margin-left:0}.callout p{max-width:none}}
+
 /* ---------- quote builder ---------- */
 .quote-sec{background:var(--ink);color:#fff}
 .quote-sec .kicker{color:#ff5560}
@@ -348,7 +358,7 @@ footer img{height:26px;filter:invert(1) brightness(2)}
   <div class="wrap">
     <p class="kicker rv">Detail Packages</p>
     <h2 class="rv">Pick your finish</h2>
-    <p class="lede rv rv-d1">Three tiers, one standard of work. Every package builds on the one below it. Choose your vehicle to see exact pricing — no surprises.</p>
+    <p class="lede rv rv-d1">Three tiers, one standard of work. Every package builds on the one below it. Choose your vehicle to see exact pricing — no surprises. All package and à la carte prices are for vehicles in <strong>average condition</strong>.</p>
 
     <div class="veh-toggle rv rv-d2" role="group" aria-label="Choose vehicle size">
       <button class="vbtn on" data-v="sedan"><svg aria-hidden="true"><use href="#i-sedan"/></svg>Sedan</button>
@@ -392,7 +402,7 @@ footer img{height:26px;filter:invert(1) brightness(2)}
         <div class="pkg-body">
           <p class="incl">Everything in Silver, plus:</p>
           <div class="svc-group"><h4>Exterior</h4>
-            <ul><li>Spray wax — shine & protection</li></ul>
+            <ul><li>Spray wax — shine & protection</li><li>Undercarriage wash</li></ul>
           </div>
           <div class="svc-group"><h4>Interior</h4>
             <ul><li>Leather conditioning</li><li>Plastic surface protection</li></ul>
@@ -432,6 +442,7 @@ footer img{height:26px;filter:invert(1) brightness(2)}
           <li>Clean wheels & tires</li>
           <li>Tire shine application</li>
           <li>Spray wax — shine & protection</li>
+          <li>Undercarriage wash</li>
         </ul>
         <div class="bigprice"><span class="lbl veh-label">Sedan</span><span class="amt" data-prices="150,165,180">$150</span></div>
       </article>
@@ -455,12 +466,21 @@ footer img{height:26px;filter:invert(1) brightness(2)}
     <p class="lede rv rv-d1">Stack any of these onto a package or à la carte service.</p>
     <div class="addons">
       <div class="addon rv"><span class="ic"><svg aria-hidden="true"><use href="#i-smell"/></svg></span><span class="nm">Odor / smoke elimination</span><b>$50</b></div>
-      <div class="addon rv"><span class="ic"><svg aria-hidden="true"><use href="#i-stain"/></svg></span><span class="nm">Stain removal</span><b>$25–$60</b></div>
+      <div class="addon rv"><span class="ic"><svg aria-hidden="true"><use href="#i-stain"/></svg></span><span class="nm">Stain removal</span><b>$35–$100</b></div>
       <div class="addon rv rv-d1"><span class="ic"><svg aria-hidden="true"><use href="#i-light"/></svg></span><span class="nm">Headlight restoration</span><b>$60</b></div>
       <div class="addon rv rv-d1"><span class="ic"><svg aria-hidden="true"><use href="#i-engine"/></svg></span><span class="nm">Engine bay cleaning</span><b>$75</b></div>
       <div class="addon rv rv-d2"><span class="ic"><svg aria-hidden="true"><use href="#i-pet"/></svg></span><span class="nm">Pet hair removal</span><b>$25–$50</b></div>
       <div class="addon rv rv-d2"><span class="ic"><svg aria-hidden="true"><use href="#i-clay"/></svg></span><span class="nm">Clay bar treatment</span><b>$75–$100</b></div>
       <div class="addon rv rv-d3"><span class="ic"><svg aria-hidden="true"><use href="#i-hazard"/></svg></span><span class="nm">Hazardous conditions</span><b>Price varies</b></div>
+    </div>
+
+    <div class="callout rv rv-d1">
+      <span class="co-ic" aria-hidden="true"><svg><use href="#i-hazard"/></svg></span>
+      <div>
+        <h3>Rough shape? Let's talk.</h3>
+        <p>Listed prices cover vehicles in average condition. Jobs that run longer than 6 hours, or vehicles that are a disaster, heavily soiled, or have never been professionally cleaned, are priced with a custom quote after we see them. Reach out and we'll take care of you — no job too far gone.</p>
+      </div>
+      <a class="btn btn-red co-cta" href="#book">Get a custom quote</a>
     </div>
   </div>
 </section>
@@ -493,7 +513,7 @@ footer img{height:26px;filter:invert(1) brightness(2)}
         <p class="qb-step">3 · Add-ons <small style="text-transform:none;letter-spacing:0;color:#8a8a90">(optional — tap to toggle)</small></p>
         <div class="chips" id="q-add">
           <button class="chip" data-a="odor">Odor / smoke <small>$50</small></button>
-          <button class="chip" data-a="stain">Stain removal <small>from $25</small></button>
+          <button class="chip" data-a="stain">Stain removal <small>from $35</small></button>
           <button class="chip" data-a="headlight">Headlights <small>$60</small></button>
           <button class="chip" data-a="engine">Engine bay <small>$75</small></button>
           <button class="chip" data-a="pet">Pet hair <small>from $25</small></button>
@@ -729,7 +749,7 @@ footer img{height:26px;filter:invert(1) brightness(2)}
   };
   var ADD = {
     odor:     {name:'Odor / smoke elimination', lo:50,  hi:50},
-    stain:    {name:'Stain removal',            lo:25,  hi:60},
+    stain:    {name:'Stain removal',            lo:35,  hi:100},
     headlight:{name:'Headlight restoration',    lo:60,  hi:60},
     engine:   {name:'Engine bay cleaning',      lo:75,  hi:75},
     pet:      {name:'Pet hair removal',         lo:25,  hi:50},
