@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Back Office | Clutch & Clean</title>
+<link rel="icon" type="image/png" href="../assets/badge.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0d0d0f; --paper:#fff; --bg:#f4f4f5; --red:#d1202a; --red-dark:#a8161f;
+  --gray:#6b7077; --line:#e2e2e5; --green:#1d7a3e; --amber:#a86a00;
+  --display:'Big Shoulders Display',sans-serif; --body:'Inter Tight',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--body);color:var(--ink);background:var(--bg);font-size:15px;line-height:1.45}
+button,input,select,textarea{font:inherit;color:inherit}
+.stripe{height:8px;background:linear-gradient(to bottom,var(--ink) 0 55%,transparent 55% 65%,var(--red) 65% 100%)}
+header{background:var(--ink);color:#fff;padding:12px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+header img{height:40px}
+header h1{font-family:var(--display);font-size:24px;letter-spacing:.02em;text-transform:uppercase;flex:1}
+header button{background:none;border:1px solid #444;color:#ccc;border-radius:6px;padding:5px 10px;cursor:pointer}
+nav{display:flex;gap:4px;padding:0 16px;background:var(--ink);overflow-x:auto}
+nav button{background:none;border:0;color:#aaa;padding:10px 14px;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+nav button.on{color:#fff;border-color:var(--red)}
+nav .badge{background:var(--red);color:#fff;border-radius:10px;padding:0 7px;font-size:12px;margin-left:5px}
+main{max-width:1150px;margin:0 auto;padding:20px 16px 60px}
+h2{font-family:var(--display);font-size:28px;text-transform:uppercase;letter-spacing:.02em}
+h3{font-size:15px;margin-bottom:8px}
+.bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+.bar .grow{flex:1}
+.bar select{width:auto}
+.btn{background:var(--red);color:#fff;border:0;border-radius:7px;padding:8px 14px;font-weight:700;cursor:pointer}
+.btn:hover{background:var(--red-dark)}
+.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn.ghost:hover{background:#fafafa}
+.btn.sm{padding:4px 9px;font-size:13px;font-weight:600}
+.card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:16px}
+.stat .k{font-size:12px;color:var(--gray);text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+.stat .v{font-family:var(--display);font-size:32px;line-height:1.1;margin-top:4px}
+.stat .s{font-size:12px;color:var(--gray)}
+.pos{color:var(--green)} .neg{color:var(--red)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:760px){.grid2{grid-template-columns:1fr}}
+.tbl-wrap{overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:10px}
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--gray);background:#fafafa;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;white-space:nowrap}
+tbody tr.click{cursor:pointer} tbody tr.click:hover{background:#fafafa}
+.muted{color:var(--gray);font-size:13px}
+.pill{display:inline-block;border-radius:20px;padding:1px 9px;font-size:12px;font-weight:600;background:#eee;white-space:nowrap}
+.pill.new{background:#fde2e3;color:var(--red-dark)} .pill.contacted,.pill.quoted{background:#fff1d6;color:var(--amber)}
+.pill.booked,.pill.completed,.pill.paid{background:#dcf2e3;color:var(--green)} .pill.lost,.pill.cancelled{background:#eee;color:#777}
+.pill.scheduled{background:#e1ecfb;color:#1f4f99} .pill.unpaid{background:#fff1d6;color:var(--amber)}
+.barrow{display:flex;align-items:center;gap:8px;margin:5px 0;font-size:13px}
+.barrow .lbl{width:110px;flex:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.barrow .track{flex:1;height:14px;background:#f0f0f2;border-radius:4px;overflow:hidden;display:flex}
+.barrow .fill{height:100%;background:var(--ink)} .barrow .fill.cost{background:var(--red)}
+.barrow .amt{width:90px;text-align:right;flex:none}
+.lead{margin-bottom:10px}
+.lead .top{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.lead .name{font-weight:700;font-size:16px}
+.lead .msg{white-space:pre-wrap;margin:6px 0;font-size:14px}
+.lead .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.lead a{color:var(--red-dark);font-weight:600}
+dialog{border:0;border-radius:12px;padding:0;width:min(720px,calc(100vw - 32px));max-height:calc(100vh - 32px)}
+dialog::backdrop{background:rgba(0,0,0,.45)}
+dialog form{padding:20px}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px 12px;margin:12px 0}
+.fgrid .wide{grid-column:1/-1}
+label{display:block;font-size:12px;font-weight:600;color:var(--gray);margin-bottom:3px}
+input,select,textarea{width:100%;border:1px solid var(--line);border-radius:7px;padding:7px 9px;background:#fff}
+textarea{min-height:64px;resize:vertical}
+input[type=checkbox]{width:auto}
+.check{display:flex;gap:6px;align-items:center;font-weight:600;color:var(--ink);font-size:14px;margin-top:22px}
+.dlg-acts{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.dlg-acts .left{margin-right:auto}
+#login{max-width:360px;margin:12vh auto;text-align:center}
+#login img{height:70px;margin:0 auto 12px}
+#login input{margin:12px 0}
+.err{color:var(--red);font-size:13px;min-height:18px}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:9px 16px;border-radius:8px;font-size:14px;z-index:99}
+.empty{padding:30px;text-align:center;color:var(--gray)}
+/* printable invoice */
+#invoice{display:none}
+@media print{
+  body{background:#fff}
+  body>*:not(#invoice){display:none!important}
+  #invoice{display:block;padding:10px 30px;font-size:14px}
+}
+#invoice .ihead{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid var(--ink);padding-bottom:14px;margin-bottom:18px}
+#invoice .ihead img{height:70px}
+#invoice h1{font-family:var(--display);font-size:40px;text-transform:uppercase}
+#invoice table{margin:18px 0}
+#invoice .tot td{font-weight:700;font-size:16px;border-top:2px solid var(--ink)}
+</style>
+</head>
+<body>
+<div class="stripe"></div>
+
+<div id="login" hidden>
+  <img src="../assets/logo.png" alt="Clutch and Clean Detailing">
+  <h2>Back Office</h2>
+  <form id="login-form">
+    <input type="password" id="pw" placeholder="Admin password" autocomplete="current-password" required>
+    <button class="btn" style="width:100%">Sign in</button>
+    <p class="err" id="login-err"></p>
+  </form>
+</div>
+
+<div id="app" hidden>
+  <header>
+    <img src="../assets/badge.png" alt="">
+    <h1>Back Office</h1>
+    <button id="logout">Sign out</button>
+  </header>
+  <nav>
+    <button data-tab="dash">Dashboard</button>
+    <button data-tab="leads">Leads<span class="badge" id="new-badge" hidden></span></button>
+    <button data-tab="jobs">Jobs &amp; Invoices</button>
+    <button data-tab="expenses">Expenses</button>
+  </nav>
+  <main>
+    <!-- DASHBOARD -->
+    <section data-view="dash">
+      <div class="bar">
+        <h2 class="grow">Dashboard</h2>
+        <select id="range"></select>
+      </div>
+      <div class="stats" id="stats"></div>
+      <div class="grid2">
+        <div class="card"><h3>By month <span class="muted">(black = sales, red = costs)</span></h3><div id="by-month"></div></div>
+        <div class="card"><h3>Sales by service</h3><div id="by-service"></div>
+          <h3 style="margin-top:16px">Expenses by category</h3><div id="by-cat"></div></div>
+      </div>
+    </section>
+
+    <!-- LEADS -->
+    <section data-view="leads" hidden>
+      <div class="bar">
+        <h2 class="grow">Leads</h2>
+        <select id="lead-filter">
+          <option value="open">Open (new / contacted / quoted)</option>
+          <option value="new">New</option><option value="contacted">Contacted</option>
+          <option value="quoted">Quoted</option><option value="booked">Booked</option>
+          <option value="lost">Lost</option><option value="">All</option>
+        </select>
+        <button class="btn" id="add-lead">+ Add lead</button>
+      </div>
+      <div id="lead-list"></div>
+    </section>
+
+    <!-- JOBS -->
+    <section data-view="jobs" hidden>
+      <div class="bar">
+        <h2 class="grow">Jobs &amp; Invoices</h2>
+        <select id="job-range"></select>
+        <button class="btn ghost" id="job-csv">Export CSV</button>
+        <button class="btn" id="add-job">+ Add job</button>
+      </div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Date</th><th>Invoice</th><th>Customer</th><th>Service</th><th>Status</th>
+          <th class="num">Charged</th><th class="num">Tip</th><th class="num">Costs</th><th class="num">Net</th><th>Paid</th></tr></thead>
+        <tbody id="job-rows"></tbody>
+      </table></div>
+    </section>
+
+    <!-- EXPENSES -->
+    <section data-view="expenses" hidden>
+      <div class="bar">
+        <h2 class="grow">Expenses</h2>
+        <select id="exp-range"></select>
+        <button class="btn ghost" id="exp-csv">Export CSV</button>
+        <button class="btn" id="add-exp">+ Add expense</button>
+      </div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Date</th><th>Category</th><th>Vendor</th><th>Description</th><th class="num">Amount</th></tr></thead>
+        <tbody id="exp-rows"></tbody>
+      </table></div>
+    </section>
+  </main>
+</div>
+
+<!-- JOB DIALOG -->
+<dialog id="job-dlg"><form method="dialog" id="job-form">
+  <h2 id="job-title">Job</h2>
+  <div class="fgrid">
+    <div><label>Date *</label><input type="date" name="job_date" required></div>
+    <div><label>Status</label><select name="status"><option value="completed">Completed</option><option value="scheduled">Scheduled</option><option value="cancelled">Cancelled</option></select></div>
+    <div><label>Invoice #</label><input name="invoice_no" placeholder="auto"></div>
+    <div><label>Customer *</label><input name="customer_name" required></div>
+    <div><label>Phone</label><input name="phone" type="tel"></div>
+    <div><label>Email</label><input name="email" type="email"></div>
+    <div class="wide"><label>Address</label><input name="address"></div>
+    <div><label>Vehicle</label><input name="vehicle" list="veh-list"></div>
+    <div><label>Service</label><input name="service" list="svc-list"></div>
+    <div><label>Add-ons</label><input name="addons"></div>
+    <div><label>Charged ($)</label><input name="price" type="number" step="0.01" min="0" inputmode="decimal"></div>
+    <div><label>Tip ($)</label><input name="tip" type="number" step="0.01" min="0" inputmode="decimal"></div>
+    <div><label>Supplies used ($)</label><input name="supply_cost" type="number" step="0.01" min="0" inputmode="decimal"></div>
+    <div><label>Other job cost ($)</label><input name="other_cost" type="number" step="0.01" min="0" inputmode="decimal"></div>
+    <div><label>Miles driven</label><input name="miles" type="number" step="0.1" min="0" inputmode="decimal"></div>
+    <div><label>Hours worked</label><input name="hours" type="number" step="0.25" min="0" inputmode="decimal"></div>
+    <div><label class="check"><input type="checkbox" name="paid"> Paid</label></div>
+    <div><label>Paid on</label><input type="date" name="paid_date"></div>
+    <div><label>Payment method</label><input name="payment_method" list="pay-list"></div>
+    <div class="wide"><label>Notes</label><textarea name="notes"></textarea></div>
+    <input type="hidden" name="lead_id">
+  </div>
+  <p class="err" id="job-err"></p>
+  <div class="dlg-acts">
+    <button type="button" class="btn ghost sm left" id="job-del">Delete</button>
+    <button type="button" class="btn ghost" id="job-inv">Print invoice</button>
+    <button type="button" class="btn ghost" value="cancel" onclick="this.closest('dialog').close()">Cancel</button>
+    <button class="btn" id="job-save">Save job</button>
+  </div>
+</form></dialog>
+
+<!-- EXPENSE DIALOG -->
+<dialog id="exp-dlg"><form method="dialog" id="exp-form">
+  <h2 id="exp-title">Expense</h2>
+  <div class="fgrid">
+    <div><label>Date *</label><input type="date" name="expense_date" required></div>
+    <div><label>Category</label><select name="category">
+      <option value="supplies">Supplies</option><option value="equipment">Equipment</option><option value="fuel">Fuel</option>
+      <option value="vehicle">Vehicle</option><option value="marketing">Marketing</option><option value="insurance">Insurance</option>
+      <option value="fees">Fees</option><option value="other">Other</option></select></div>
+    <div><label>Amount ($) *</label><input name="amount" type="number" step="0.01" min="0" required inputmode="decimal"></div>
+    <div><label>Vendor</label><input name="vendor"></div>
+    <div class="wide"><label>Description</label><input name="description"></div>
+    <div class="wide"><label>Notes</label><textarea name="notes"></textarea></div>
+  </div>
+  <p class="err" id="exp-err"></p>
+  <div class="dlg-acts">
+    <button type="button" class="btn ghost sm left" id="exp-del">Delete</button>
+    <button type="button" class="btn ghost" onclick="this.closest('dialog').close()">Cancel</button>
+    <button class="btn">Save expense</button>
+  </div>
+</form></dialog>
+
+<!-- LEAD DIALOG -->
+<dialog id="lead-dlg"><form method="dialog" id="lead-form">
+  <h2 id="lead-title">Lead</h2>
+  <div class="fgrid">
+    <div><label>Name *</label><input name="name" required></div>
+    <div><label>Phone</label><input name="phone" type="tel"></div>
+    <div><label>Email</label><input name="email" type="email"></div>
+    <div><label>Vehicle</label><input name="vehicle" list="veh-list"></div>
+    <div><label>Service</label><input name="service" list="svc-list"></div>
+    <div><label>Source</label><input name="source" list="src-list" placeholder="website"></div>
+    <div><label>Status</label><select name="status"><option>new</option><option>contacted</option><option>quoted</option><option>booked</option><option>lost</option></select></div>
+    <div class="wide"><label>Their message</label><textarea name="message"></textarea></div>
+    <div class="wide"><label>Your notes</label><textarea name="notes"></textarea></div>
+  </div>
+  <p class="err" id="lead-err"></p>
+  <div class="dlg-acts">
+    <button type="button" class="btn ghost sm left" id="lead-del">Delete</button>
+    <button type="button" class="btn ghost" onclick="this.closest('dialog').close()">Cancel</button>
+    <button class="btn">Save lead</button>
+  </div>
+</form></dialog>
+
+<datalist id="veh-list"><option>Sedan</option><option>Mid-Size SUV</option><option>Large SUV / Truck</option></datalist>
+<datalist id="svc-list"><option>Bronze Package</option><option>Silver Package</option><option>Gold Package</option><option>Interior Only</option><option>Exterior Only</option><option>Quick Wash &amp; Vac</option></datalist>
+<datalist id="pay-list"><option>Cash</option><option>Venmo</option><option>Cash App</option><option>Zelle</option><option>Card</option><option>Check</option></datalist>
+<datalist id="src-list"><option>website</option><option>phone</option><option>text</option><option>instagram</option><option>facebook</option><option>referral</option><option>repeat</option></datalist>
+
+<div id="invoice"></div>
+
+<script>
+(function(){
+  var TOKEN_KEY = 'cc_admin_token';
+  var token = '';
+  try { token = localStorage.getItem(TOKEN_KEY) || ''; } catch(e){}
+  var $ = function(s, el){ return (el||document).querySelector(s); };
+  var $$ = function(s, el){ return Array.prototype.slice.call((el||document).querySelectorAll(s)); };
+
+  /* ---------- helpers ---------- */
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function money(c){ c = c || 0; var neg = c < 0; var s = (Math.abs(c)/100).toLocaleString('en-US',{style:'currency',currency:'USD'}); return neg ? '-'+s : s; }
+  function toCents(v){ var n = parseFloat(v); return isFinite(n) ? Math.round(n*100) : 0; }
+  function fromCents(c){ return c ? (c/100).toFixed(2) : ''; }
+  function today(){ var d = new Date(); d.setMinutes(d.getMinutes()-d.getTimezoneOffset()); return d.toISOString().slice(0,10); }
+  function fmtDate(s){ if(!s) return ''; var p = s.slice(0,10).split('-'); return p[1]+'/'+p[2]+'/'+p[0]; }
+  function ago(s){
+    var d = new Date(s.replace(' ','T')+'Z'), m = Math.round((Date.now()-d)/60000);
+    if(m < 60) return m+'m ago'; if(m < 1440) return Math.round(m/60)+'h ago';
+    return Math.round(m/1440)+'d ago';
+  }
+  function toast(msg){ var t = document.createElement('div'); t.className='toast'; t.textContent=msg; document.body.appendChild(t); setTimeout(function(){ t.remove(); }, 2200); }
+
+  function api(path, opts){
+    opts = opts || {};
+    var headers = { 'Authorization': 'Bearer ' + token };
+    if(opts.body){ headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(opts.body); }
+    opts.headers = headers;
+    return fetch('/api/admin/' + path, opts).then(function(r){
+      return r.json().catch(function(){ return {}; }).then(function(d){
+        if(r.status === 401){ showLogin('Wrong password.'); throw new Error('Unauthorized'); }
+        if(!r.ok) throw new Error(d.error || ('Request failed ('+r.status+')'));
+        return d;
+      });
+    });
+  }
+
+  /* ---------- date ranges ---------- */
+  function ranges(){
+    var y = new Date().getFullYear(), t = today(), mo = t.slice(0,7);
+    var lm = new Date(); lm.setDate(1); lm.setMonth(lm.getMonth()-1);
+    var lmS = lm.getFullYear()+'-'+String(lm.getMonth()+1).padStart(2,'0');
+    var lmEnd = new Date(lm.getFullYear(), lm.getMonth()+1, 0).getDate();
+    return [
+      ['This year', y+'-01-01', y+'-12-31'],
+      ['This month', mo+'-01', mo+'-31'],
+      ['Last month', lmS+'-01', lmS+'-'+lmEnd],
+      ['Last year', (y-1)+'-01-01', (y-1)+'-12-31'],
+      ['All time', '2000-01-01', '2999-12-31']
+    ];
+  }
+  $$('#range, #job-range, #exp-range').forEach(function(sel){
+    sel.innerHTML = ranges().map(function(r, i){ return '<option value="'+i+'">'+r[0]+'</option>'; }).join('');
+  });
+  function rangeQS(sel){ var r = ranges()[+$(sel).value]; return 'from='+r[1]+'&to='+r[2]; }
+
+  /* ---------- login / tabs ---------- */
+  function showLogin(msg){
+    $('#app').hidden = true; $('#login').hidden = false;
+    $('#login-err').textContent = msg || ''; $('#pw').focus();
+  }
+  function showApp(){
+    $('#login').hidden = true; $('#app').hidden = false;
+    go((location.hash || '#dash').slice(1));
+  }
+  $('#login-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    token = $('#pw').value;
+    api('summary').then(function(){
+      try { localStorage.setItem(TOKEN_KEY, token); } catch(e){}
+      $('#pw').value = ''; showApp();
+    }).catch(function(err){ if(err.message !== 'Unauthorized') $('#login-err').textContent = err.message; });
+  });
+  $('#logout').addEventListener('click', function(){
+    token = ''; try { localStorage.removeItem(TOKEN_KEY); } catch(e){}
+    showLogin();
+  });
+
+  var loaders = {};
+  function go(tab){
+    if(!loaders[tab]) tab = 'dash';
+    history.replaceState(null, '', '#'+tab);
+    $$('nav button').forEach(function(b){ b.classList.toggle('on', b.dataset.tab === tab); });
+    $$('[data-view]').forEach(function(v){ v.hidden = v.dataset.view !== tab; });
+    loaders[tab]();
+  }
+  $$('nav button').forEach(function(b){ b.addEventListener('click', function(){ go(b.dataset.tab); }); });
+
+  /* ---------- dashboard ---------- */
+  function bars(el, rows, label, val, cost){
+    if(!rows.length){ el.innerHTML = '<p class="muted">Nothing yet.</p>'; return; }
+    var max = Math.max.apply(null, rows.map(function(r){ return Math.max(val(r), cost ? cost(r) : 0); })) || 1;
+    el.innerHTML = rows.map(function(r){
+      var v = val(r), c = cost ? cost(r) : 0;
+      return '<div class="barrow"><span class="lbl" title="'+esc(label(r))+'">'+esc(label(r))+'</span>'+
+        '<span class="track" style="flex-direction:column;height:'+(cost?18:14)+'px">'+
+        '<span class="fill" style="width:'+(v/max*100)+'%;height:'+(cost?'50%':'100%')+'"></span>'+
+        (cost ? '<span class="fill cost" style="width:'+(c/max*100)+'%;height:50%"></span>' : '')+
+        '</span><span class="amt">'+money(v)+(cost ? '<br><span class="neg">'+money(c)+'</span>' : '')+'</span></div>';
+    }).join('');
+  }
+  loaders.dash = function(){
+    api('summary?'+rangeQS('#range')).then(function(s){
+      var stat = function(k, v, sub, cls){ return '<div class="card stat"><div class="k">'+k+'</div><div class="v '+(cls||'')+'">'+v+'</div><div class="s">'+(sub||'&nbsp;')+'</div></div>'; };
+      $('#stats').innerHTML =
+        stat('Total sales', money(s.gross_cents), money(s.revenue_cents)+' charged + '+money(s.tips_cents)+' tips') +
+        stat('Total costs', money(s.job_costs_cents + s.expenses_cents), money(s.job_costs_cents)+' job + '+money(s.expenses_cents)+' expenses', 'neg') +
+        stat('Profit', money(s.profit_cents), s.profit_per_hour_cents != null ? money(s.profit_per_hour_cents)+'/hr over '+s.hours+' hrs' : '', s.profit_cents >= 0 ? 'pos' : 'neg') +
+        stat('Jobs done', s.jobs, 'avg ticket '+money(s.avg_ticket_cents)) +
+        stat('Unpaid', money(s.outstanding.cents), s.outstanding.jobs+' completed job(s) owed', s.outstanding.cents ? 'neg' : '') +
+        stat('Upcoming', s.upcoming.jobs, money(s.upcoming.cents)+' scheduled') +
+        stat('Open leads', (s.leads.new||0) + (s.leads.open||0), (s.leads.new||0)+' new · '+(s.leads.in_range||0)+' received in range') +
+        stat('Miles', Math.round(s.miles), '≈ '+money(s.mileage_deduction_cents)+' deduction @ '+s.mileage_rate_cents+'¢');
+      bars($('#by-month'), s.by_month, function(r){ return r.month; }, function(r){ return r.revenue_cents; }, function(r){ return r.costs_cents; });
+      bars($('#by-service'), s.by_service, function(r){ return r.service+' ('+r.jobs+')'; }, function(r){ return r.revenue_cents; });
+      bars($('#by-cat'), s.expenses_by_category, function(r){ return r.category; }, function(r){ return r.cents; });
+      setBadge(s.leads.new);
+    }).catch(function(e){ if(e.message !== 'Unauthorized') toast(e.message); });
+  };
+  $('#range').addEventListener('change', loaders.dash);
+  function setBadge(n){ var b = $('#new-badge'); b.hidden = !n; b.textContent = n || ''; }
+  function refreshBadge(){ api('leads?status=new').then(function(r){ setBadge(r.length); }).catch(function(){}); }
+
+  /* ---------- leads ---------- */
+  var leadsById = {};
+  loaders.leads = function(){
+    var f = $('#lead-filter').value;
+    api('leads' + (f && f !== 'open' ? '?status='+f : '')).then(function(rows){
+      if(f === 'open') rows = rows.filter(function(r){ return ['new','contacted','quoted'].indexOf(r.status) > -1; });
+      leadsById = {}; rows.forEach(function(r){ leadsById[r.id] = r; });
+      if(f === 'open' || f === 'new') setBadge(rows.filter(function(r){ return r.status === 'new'; }).length);
+      else refreshBadge();
+      $('#lead-list').innerHTML = rows.length ? rows.map(function(l){
+        var next = { new:'contacted', contacted:'quoted', quoted:null }[l.status];
+        return '<div class="card lead"><div class="top"><span class="name">'+esc(l.name)+'</span>'+
+          '<span class="pill '+l.status+'">'+l.status+'</span><span class="muted">'+ago(l.created_at)+' · '+esc(l.source)+'</span></div>'+
+          '<div>'+(l.phone ? '<a href="tel:'+esc(l.phone)+'">'+esc(l.phone)+'</a> · <a href="sms:'+esc(l.phone)+'">text</a>' : '')+
+          (l.email ? ' · <a href="mailto:'+esc(l.email)+'">'+esc(l.email)+'</a>' : '')+'</div>'+
+          '<div class="muted">'+esc([l.vehicle, l.service].filter(Boolean).join(' · '))+'</div>'+
+          (l.message ? '<div class="msg">'+esc(l.message)+'</div>' : '')+
+          (l.notes ? '<div class="msg muted">Notes: '+esc(l.notes)+'</div>' : '')+
+          '<div class="acts">'+
+            (next ? '<button class="btn ghost sm" data-act="status" data-id="'+l.id+'" data-v="'+next+'">Mark '+next+'</button>' : '')+
+            (l.status !== 'booked' ? '<button class="btn sm" data-act="book" data-id="'+l.id+'">Book job →</button>' : '')+
+            (l.status !== 'lost' && l.status !== 'booked' ? '<button class="btn ghost sm" data-act="status" data-id="'+l.id+'" data-v="lost">Lost</button>' : '')+
+            '<button class="btn ghost sm" data-act="edit" data-id="'+l.id+'">Edit</button>'+
+          '</div></div>';
+      }).join('') : '<div class="card empty">No leads here. New website inquiries show up automatically.</div>';
+    }).catch(function(e){ if(e.message !== 'Unauthorized') toast(e.message); });
+  };
+  $('#lead-filter').addEventListener('change', loaders.leads);
+  $('#lead-list').addEventListener('click', function(e){
+    var b = e.target.closest('button[data-act]'); if(!b) return;
+    var l = leadsById[b.dataset.id];
+    if(b.dataset.act === 'status'){
+      api('leads/'+l.id, { method:'PATCH', body:{ status:b.dataset.v } }).then(loaders.leads);
+    } else if(b.dataset.act === 'edit'){
+      openLead(l);
+    } else if(b.dataset.act === 'book'){
+      var quoted = /Quoted on site: \$?([\d,.]+)/.exec(l.message || '');
+      var adds = /Add-ons: (.*)/.exec(l.message || '');
+      openJob({ status:'scheduled', job_date: today(), customer_name:l.name, phone:l.phone, email:l.email,
+        vehicle:l.vehicle, service:l.service === 'Not sure yet' ? '' : l.service, addons: adds ? adds[1] : '',
+        price_cents: quoted ? toCents(quoted[1].replace(/,/g,'')) : 0, lead_id:l.id, notes:l.message });
+    }
+  });
+  $('#add-lead').addEventListener('click', function(){ openLead({ status:'new', source:'phone' }); });
+
+  function fillForm(form, obj){
+    $$('input, select, textarea', form).forEach(function(el){
+      if(!el.name) return;
+      if(el.type === 'checkbox') el.checked = !!obj[el.name];
+      else el.value = obj[el.name] == null ? '' : obj[el.name];
+    });
+  }
+  function readForm(form){
+    var o = {};
+    $$('input, select, textarea', form).forEach(function(el){
+      if(!el.name) return;
+      o[el.name] = el.type === 'checkbox' ? el.checked : el.value;
+    });
+    return o;
+  }
+
+  var editingLead = null;
+  function openLead(l){
+    editingLead = l.id || null;
+    $('#lead-title').textContent = editingLead ? 'Edit lead' : 'New lead';
+    fillForm($('#lead-form'), l); $('#lead-err').textContent = '';
+    $('#lead-del').hidden = !editingLead;
+    $('#lead-dlg').showModal();
+  }
+  $('#lead-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var body = readForm(e.target); if(!body.source) body.source = 'other';
+    api(editingLead ? 'leads/'+editingLead : 'leads', { method: editingLead ? 'PATCH' : 'POST', body: body })
+      .then(function(){ $('#lead-dlg').close(); toast('Lead saved'); loaders.leads(); })
+      .catch(function(err){ $('#lead-err').textContent = err.message; });
+  });
+  $('#lead-del').addEventListener('click', function(){
+    if(!confirm('Delete this lead?')) return;
+    api('leads/'+editingLead, { method:'DELETE' }).then(function(){ $('#lead-dlg').close(); loaders.leads(); });
+  });
+
+  /* ---------- jobs ---------- */
+  var jobs = [], editingJob = null;
+  loaders.jobs = function(){
+    api('jobs?'+rangeQS('#job-range')).then(function(rows){
+      jobs = rows;
+      var tot = { p:0, t:0, c:0 };
+      $('#job-rows').innerHTML = rows.length ? rows.map(function(j, i){
+        var cost = j.supply_cost_cents + j.other_cost_cents;
+        if(j.status === 'completed'){ tot.p += j.price_cents; tot.t += j.tip_cents; tot.c += cost; }
+        return '<tr class="click" data-i="'+i+'"><td class="num" style="text-align:left">'+fmtDate(j.job_date)+'</td><td class="muted" style="white-space:nowrap">'+esc(j.invoice_no)+'</td>'+
+          '<td>'+esc(j.customer_name)+'<div class="muted">'+esc(j.vehicle)+'</div></td><td>'+esc(j.service)+'</td>'+
+          '<td><span class="pill '+j.status+'">'+j.status+'</span></td>'+
+          '<td class="num">'+money(j.price_cents)+'</td><td class="num">'+money(j.tip_cents)+'</td>'+
+          '<td class="num neg">'+money(cost)+'</td><td class="num">'+money(j.price_cents + j.tip_cents - cost)+'</td>'+
+          '<td>'+(j.status === 'cancelled' ? '' : '<span class="pill '+(j.paid?'paid':'unpaid')+'">'+(j.paid?'paid':'unpaid')+'</span>')+'</td></tr>';
+      }).join('') + '<tr><td colspan="5"><b>Completed totals</b></td><td class="num"><b>'+money(tot.p)+'</b></td><td class="num"><b>'+money(tot.t)+'</b></td>'+
+        '<td class="num neg"><b>'+money(tot.c)+'</b></td><td class="num"><b>'+money(tot.p+tot.t-tot.c)+'</b></td><td></td></tr>'
+        : '<tr><td colspan="10" class="empty">No jobs in this range. Hit “+ Add job” after each detail.</td></tr>';
+    }).catch(function(e){ if(e.message !== 'Unauthorized') toast(e.message); });
+  };
+  $('#job-range').addEventListener('change', loaders.jobs);
+  $('#job-rows').addEventListener('click', function(e){
+    var tr = e.target.closest('tr[data-i]'); if(tr) openJob(jobs[+tr.dataset.i]);
+  });
+  $('#add-job').addEventListener('click', function(){ openJob({ job_date: today(), status:'completed' }); });
+
+  function openJob(j){
+    editingJob = j.id ? j : null;
+    $('#job-title').textContent = editingJob ? 'Job '+(j.invoice_no || '') : 'New job';
+    var f = $('#job-form');
+    fillForm(f, j);
+    f.price.value = fromCents(j.price_cents); f.tip.value = fromCents(j.tip_cents);
+    f.supply_cost.value = fromCents(j.supply_cost_cents); f.other_cost.value = fromCents(j.other_cost_cents);
+    if(!j.miles) f.miles.value = ''; if(!j.hours) f.hours.value = '';
+    $('#job-err').textContent = '';
+    $('#job-del').hidden = $('#job-inv').hidden = !editingJob;
+    $('#job-dlg').showModal();
+  }
+  function jobBody(){
+    var o = readForm($('#job-form'));
+    o.price_cents = toCents(o.price); o.tip_cents = toCents(o.tip);
+    o.supply_cost_cents = toCents(o.supply_cost); o.other_cost_cents = toCents(o.other_cost);
+    o.miles = parseFloat(o.miles) || 0; o.hours = parseFloat(o.hours) || 0;
+    ['price','tip','supply_cost','other_cost'].forEach(function(k){ delete o[k]; });
+    if(!o.lead_id) delete o.lead_id;
+    return o;
+  }
+  $('#job-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    api(editingJob ? 'jobs/'+editingJob.id : 'jobs', { method: editingJob ? 'PATCH' : 'POST', body: jobBody() })
+      .then(function(j){
+        $('#job-dlg').close(); toast('Saved '+j.invoice_no);
+        if(j.lead_id) refreshBadge();
+        if(!$('[data-view=jobs]').hidden) loaders.jobs(); else go('jobs');
+      })
+      .catch(function(err){ $('#job-err').textContent = err.message; });
+  });
+  $('#job-del').addEventListener('click', function(){
+    if(!confirm('Delete this job? This cannot be undone.')) return;
+    api('jobs/'+editingJob.id, { method:'DELETE' }).then(function(){ $('#job-dlg').close(); loaders.jobs(); });
+  });
+  $('#job-inv').addEventListener('click', function(){ printInvoice(Object.assign({}, editingJob, jobBody())); });
+
+  function printInvoice(j){
+    var lines = [[j.service || 'Detailing service', j.price_cents]];
+    var total = j.price_cents;
+    $('#invoice').innerHTML =
+      '<div class="ihead"><div><img src="../assets/logo.png" alt=""><p>Clutch &amp; Clean Detailing<br>Mobile Auto Detailing · North Iowa<br>641-525-2532 · Clutchandcleandetailers@gmail.com</p></div>'+
+      '<div style="text-align:right"><h1>Invoice</h1><p><b>'+esc(j.invoice_no)+'</b><br>Date: '+fmtDate(j.job_date)+'</p></div></div>'+
+      '<p><b>Bill to:</b><br>'+esc(j.customer_name)+(j.address ? '<br>'+esc(j.address) : '')+(j.phone ? '<br>'+esc(j.phone) : '')+(j.email ? '<br>'+esc(j.email) : '')+'</p>'+
+      (j.vehicle ? '<p style="margin-top:8px"><b>Vehicle:</b> '+esc(j.vehicle)+'</p>' : '')+
+      '<table><thead><tr><th>Description</th><th class="num">Amount</th></tr></thead><tbody>'+
+      lines.map(function(l){ return '<tr><td>'+esc(l[0])+(j.addons ? '<div class="muted">Includes: '+esc(j.addons)+'</div>' : '')+'</td><td class="num">'+money(l[1])+'</td></tr>'; }).join('')+
+      '<tr class="tot"><td>Total</td><td class="num">'+money(total)+'</td></tr></tbody></table>'+
+      (j.paid ? '<p><b>PAID</b>'+(j.paid_date ? ' on '+fmtDate(j.paid_date) : '')+(j.payment_method ? ' · '+esc(j.payment_method) : '')+' — thank you!</p>'
+              : '<p><b>Balance due: '+money(total)+'</b><br>We accept cash, Venmo, Cash App and Zelle.</p>')+
+      '<p style="margin-top:30px" class="muted">Thanks for choosing Clutch &amp; Clean Detailing!</p>';
+    setTimeout(function(){ window.print(); }, 50);
+  }
+
+  /* ---------- expenses ---------- */
+  var exps = [], editingExp = null;
+  loaders.expenses = function(){
+    api('expenses?'+rangeQS('#exp-range')).then(function(rows){
+      exps = rows; var tot = 0;
+      $('#exp-rows').innerHTML = rows.length ? rows.map(function(x, i){
+        tot += x.amount_cents;
+        return '<tr class="click" data-i="'+i+'"><td>'+fmtDate(x.expense_date)+'</td><td><span class="pill">'+esc(x.category)+'</span></td>'+
+          '<td>'+esc(x.vendor)+'</td><td>'+esc(x.description)+'</td><td class="num">'+money(x.amount_cents)+'</td></tr>';
+      }).join('') + '<tr><td colspan="4"><b>Total</b></td><td class="num"><b>'+money(tot)+'</b></td></tr>'
+        : '<tr><td colspan="5" class="empty">No expenses in this range.</td></tr>';
+    }).catch(function(e){ if(e.message !== 'Unauthorized') toast(e.message); });
+  };
+  $('#exp-range').addEventListener('change', loaders.expenses);
+  $('#exp-rows').addEventListener('click', function(e){
+    var tr = e.target.closest('tr[data-i]'); if(tr) openExp(exps[+tr.dataset.i]);
+  });
+  $('#add-exp').addEventListener('click', function(){ openExp({ expense_date: today(), category:'supplies' }); });
+  function openExp(x){
+    editingExp = x.id ? x : null;
+    $('#exp-title').textContent = editingExp ? 'Edit expense' : 'New expense';
+    fillForm($('#exp-form'), x); $('#exp-form').amount.value = fromCents(x.amount_cents);
+    $('#exp-err').textContent = ''; $('#exp-del').hidden = !editingExp;
+    $('#exp-dlg').showModal();
+  }
+  $('#exp-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var o = readForm(e.target); o.amount_cents = toCents(o.amount); delete o.amount;
+    api(editingExp ? 'expenses/'+editingExp.id : 'expenses', { method: editingExp ? 'PATCH' : 'POST', body: o })
+      .then(function(){ $('#exp-dlg').close(); toast('Expense saved'); loaders.expenses(); })
+      .catch(function(err){ $('#exp-err').textContent = err.message; });
+  });
+  $('#exp-del').addEventListener('click', function(){
+    if(!confirm('Delete this expense?')) return;
+    api('expenses/'+editingExp.id, { method:'DELETE' }).then(function(){ $('#exp-dlg').close(); loaders.expenses(); });
+  });
+
+  /* ---------- CSV export ---------- */
+  function csv(name, rows, cols){
+    var q = function(v){ v = v == null ? '' : String(v); return /[",\n]/.test(v) ? '"'+v.replace(/"/g,'""')+'"' : v; };
+    var out = [cols.map(function(c){ return c[0]; }).join(',')].concat(rows.map(function(r){
+      return cols.map(function(c){ return q(c[1](r)); }).join(',');
+    })).join('\n');
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([out], { type:'text/csv' }));
+    a.download = name; a.click();
+  }
+  var d = function(c){ return (c/100).toFixed(2); };
+  $('#job-csv').addEventListener('click', function(){
+    csv('clutch-clean-jobs.csv', jobs, [
+      ['Date', function(j){ return j.job_date; }], ['Invoice', function(j){ return j.invoice_no; }],
+      ['Status', function(j){ return j.status; }], ['Customer', function(j){ return j.customer_name; }],
+      ['Phone', function(j){ return j.phone; }], ['Vehicle', function(j){ return j.vehicle; }],
+      ['Service', function(j){ return j.service; }], ['Add-ons', function(j){ return j.addons; }],
+      ['Charged', function(j){ return d(j.price_cents); }], ['Tip', function(j){ return d(j.tip_cents); }],
+      ['Supplies', function(j){ return d(j.supply_cost_cents); }], ['Other cost', function(j){ return d(j.other_cost_cents); }],
+      ['Miles', function(j){ return j.miles; }], ['Hours', function(j){ return j.hours; }],
+      ['Paid', function(j){ return j.paid ? 'yes' : 'no'; }], ['Paid date', function(j){ return j.paid_date; }],
+      ['Payment method', function(j){ return j.payment_method; }], ['Notes', function(j){ return j.notes; }]
+    ]);
+  });
+  $('#exp-csv').addEventListener('click', function(){
+    csv('clutch-clean-expenses.csv', exps, [
+      ['Date', function(x){ return x.expense_date; }], ['Category', function(x){ return x.category; }],
+      ['Vendor', function(x){ return x.vendor; }], ['Description', function(x){ return x.description; }],
+      ['Amount', function(x){ return d(x.amount_cents); }], ['Notes', function(x){ return x.notes; }]
+    ]);
+  });
+
+  /* ---------- boot ---------- */
+  if(token) api('summary').then(showApp).catch(function(e){ if(e.message !== 'Unauthorized') showLogin(e.message); });
+  else showLogin();
+})();
+</script>
+</body>
+</html>

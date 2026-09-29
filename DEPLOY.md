@@ -43,3 +43,6 @@ Formspree confirms the address on the FIRST submission. Once the site is live:
 
 Until that link is clicked, inquiries will NOT be delivered. After it's
 confirmed, every lead arrives with the subject "New detail inquiry — [name]".
+
+## Back office (/admin)
+Needs a one-time D1 database + password setup in Cloudflare. Follow [BACKEND.md](BACKEND.md).

@@ -670,9 +670,9 @@ footer img{height:26px;filter:invert(1) brightness(2)}
     <h4>What we collect</h4>
     <p>When you submit the inquiry form, we collect the information you provide — your name, phone number, and, if you choose to share them, your email address and details about your vehicle and the service you want. We do not collect payment information through this website.</p>
     <h4>How we use it</h4>
-    <p>We use your information for one purpose: to respond to your inquiry and schedule your detailing service. Form submissions are delivered to us by email through Formspree, a third-party form provider. We do not sell, rent, or share your information with anyone for marketing purposes.</p>
+    <p>We use your information for one purpose: to respond to your inquiry and schedule your detailing service. Form submissions are delivered to us by email through Formspree, a third-party form provider, and saved in our private customer records (hosted on Cloudflare) so we can follow up and keep track of your service. We do not sell, rent, or share your information with anyone for marketing purposes.</p>
     <h4>Third-party services</h4>
-    <p>This site is hosted on Cloudflare Pages and uses Formspree to process form submissions. Each provider handles your data under its own privacy policy. We load fonts from Google Fonts, which may receive standard request information such as your IP address.</p>
+    <p>This site is hosted on Cloudflare Pages, which also stores our inquiry and service records, and uses Formspree to process form submissions. Each provider handles your data under its own privacy policy. We load fonts from Google Fonts, which may receive standard request information such as your IP address.</p>
     <h4>Cookies &amp; tracking</h4>
     <p>This website does not use advertising cookies or tracking pixels.</p>
     <h4>Your choices</h4>
@@ -873,8 +873,9 @@ footer img{height:26px;filter:invert(1) brightness(2)}
     /* anchor link handles the scroll to #book */
   });
 
-  /* ---------- inquiry form (Formspree) ---------- */
+  /* ---------- inquiry form (Formspree + back office) ---------- */
   var FORM_ENDPOINT = 'https://formspree.io/f/maqzazkw'; /* Clutch & Clean inquiries → Clutchandcleandetailers@gmail.com */
+  var LEADS_ENDPOINT = '/api/leads'; /* back office lead tracker (Cloudflare Pages Function + D1) */
   var form = document.getElementById('inquiry'),
       status = document.getElementById('f-status'),
       submitBtn = document.getElementById('f-submit');
@@ -893,15 +894,21 @@ footer img{height:26px;filter:invert(1) brightness(2)}
     data.append('_subject', 'New detail inquiry — ' + name);
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending…';
-    fetch(FORM_ENDPOINT, {
-      method:'POST',
-      body:data,
-      headers:{'Accept':'application/json'}
-    }).then(function(r){
-      if(r.ok){
-        document.getElementById('form-wrap').hidden = true;
-        document.getElementById('form-done').hidden = false;
-      } else { throw new Error('bad status'); }
+    /* Send to Formspree (email) and our own back office (/admin) in parallel;
+       the inquiry counts as delivered if either one accepts it. */
+    function post(url, body){
+      return fetch(url, { method:'POST', body:body, headers:{'Accept':'application/json'} })
+        .then(function(r){ if(!r.ok) throw new Error('bad status'); });
+    }
+    var sends = [post(FORM_ENDPOINT, data), post(LEADS_ENDPOINT, new FormData(form))];
+    var failed = 0;
+    new Promise(function(resolve, reject){
+      sends.forEach(function(p){
+        p.then(resolve, function(){ if(++failed === sends.length) reject(); });
+      });
+    }).then(function(){
+      document.getElementById('form-wrap').hidden = true;
+      document.getElementById('form-done').hidden = false;
     }).catch(function(){
       status.textContent = "Couldn't send right now — please call or text 641-525-2532 instead.";
       status.classList.add('err');
