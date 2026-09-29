@@ -57,6 +57,13 @@ const T = {
     if (!opts.includes(v)) throw `must be one of ${opts.join(', ')}`;
     return v;
   },
+  json: (max = 20000) => (v) => {
+    if (v === null || v === undefined || v === '') return null;
+    const str = typeof v === 'string' ? v : JSON.stringify(v);
+    try { JSON.parse(str); } catch { throw 'must be valid JSON'; }
+    if (str.length > max) throw 'is too large';
+    return str;
+  },
   id: () => (v) => {
     if (v === null || v === undefined || v === '') return null;
     const n = Number(v);
@@ -88,7 +95,7 @@ export const TABLES = {
       vehicle: T.text(120), service: T.text(120), addons: T.text(500),
       price_cents: T.cents(), tip_cents: T.cents(), supply_cost_cents: T.cents(), other_cost_cents: T.cents(),
       miles: T.num(), hours: T.num(), invoice_no: T.text(40), paid: T.bool(), paid_date: T.date(),
-      payment_method: T.text(40), notes: T.text(3000), lead_id: T.id(),
+      payment_method: T.text(40), notes: T.text(3000), lead_id: T.id(), quote: T.json(),
     },
   },
   expenses: {
