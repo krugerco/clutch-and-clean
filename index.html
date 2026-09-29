@@ -204,6 +204,21 @@ h2{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size
 .t-card cite{font-style:normal;font-weight:700;font-size:14px;color:#ff5560;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:8px}
 .stars{color:var(--gold2);letter-spacing:2px;font-size:13px}
 
+/* ---------- before & after ---------- */
+.ba-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px;margin-top:42px}
+.ba{margin:0}
+.ba-frame{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:8px;background:#111;cursor:ew-resize;touch-action:pan-y;user-select:none}
+.ba-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.ba-frame .ba-after{clip-path:inset(0 0 0 var(--pos,50%))}
+.ba-line{position:absolute;top:0;bottom:0;left:var(--pos,50%);width:3px;margin-left:-1.5px;background:#fff;box-shadow:0 0 6px rgba(0,0,0,.4)}
+.ba-knob{position:absolute;top:50%;left:50%;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;background:var(--red);border:3px solid #fff;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px}
+.ba-tag{position:absolute;top:10px;padding:3px 9px;border-radius:3px;background:rgba(0,0,0,.65);color:#fff;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.ba-tag.b{left:10px}.ba-tag.a{right:10px;background:var(--red)}
+.ba-range{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.ba figcaption{margin-top:10px;font-size:15px}
+.ba figcaption b{display:block;font-size:16px}
+.ba figcaption span{color:var(--gray)}
+
 /* ---------- contact ---------- */
 .contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
 .contact-big{font-family:var(--display);font-weight:800;font-size:clamp(34px,4.5vw,52px);text-transform:uppercase;line-height:1;text-decoration:none;display:block;margin:18px 0 8px;transition:color .2s}
@@ -377,7 +392,7 @@ footer img{height:26px;filter:invert(1) brightness(2)}
           <div class="svc-group"><h4>Interior</h4>
             <ul><li>Full interior vacuum</li><li>Wipe down plastic panels & console</li><li>Light seat & carpet treatment</li><li>Interior glass cleaning</li><li>Floor mat restoration</li></ul>
           </div>
-          <div class="bigprice"><span class="lbl veh-label">Sedan</span><span class="amt" data-prices="200,225,250">$200</span></div>
+          <div class="bigprice"><span class="lbl veh-label">Sedan</span><span class="amt" data-svc="bronze" data-prices="200,225,250">$200</span></div>
         </div>
       </article>
 
@@ -392,7 +407,7 @@ footer img{height:26px;filter:invert(1) brightness(2)}
           <div class="svc-group"><h4>Interior</h4>
             <ul><li>Deep clean: panels & console</li><li>Fabric seat shampoo</li></ul>
           </div>
-          <div class="bigprice"><span class="lbl veh-label">Sedan</span><span class="amt" data-prices="245,270,295">$245</span></div>
+          <div class="bigprice"><span class="lbl veh-label">Sedan</span><span class="amt" data-svc="silver" data-prices="245,270,295">$245</span></div>
         </div>
       </article>
 
@@ -407,7 +422,7 @@ footer img{height:26px;filter:invert(1) brightness(2)}
           <div class="svc-group"><h4>Interior</h4>
             <ul><li>Leather conditioning</li><li>Plastic surface protection</li></ul>
           </div>
-          <div class="bigprice"><span class="lbl veh-label">Sedan</span><span class="amt" data-prices="290,315,340">$290</span></div>
+          <div class="bigprice"><span class="lbl veh-label">Sedan</span><span class="amt" data-svc="gold" data-prices="290,315,340">$290</span></div>
         </div>
       </article>
     </div>
@@ -432,7 +447,7 @@ footer img{height:26px;filter:invert(1) brightness(2)}
           <li>Leather conditioning (as needed)</li>
           <li>Plastic surface protection</li>
         </ul>
-        <div class="bigprice"><span class="lbl veh-label">Sedan</span><span class="amt" data-prices="165,175,185">$165</span></div>
+        <div class="bigprice"><span class="lbl veh-label">Sedan</span><span class="amt" data-svc="interior" data-prices="165,175,185">$165</span></div>
       </article>
 
       <article class="alc rv rv-d1">
@@ -444,7 +459,7 @@ footer img{height:26px;filter:invert(1) brightness(2)}
           <li>Spray wax — shine & protection</li>
           <li>Undercarriage wash</li>
         </ul>
-        <div class="bigprice"><span class="lbl veh-label">Sedan</span><span class="amt" data-prices="150,165,180">$150</span></div>
+        <div class="bigprice"><span class="lbl veh-label">Sedan</span><span class="amt" data-svc="exterior" data-prices="150,165,180">$150</span></div>
       </article>
 
       <article class="alc rv rv-d2">
@@ -453,7 +468,7 @@ footer img{height:26px;filter:invert(1) brightness(2)}
           <li>Exterior hand wash</li>
           <li>Vacuum + wipe down</li>
         </ul>
-        <div class="bigprice"><span class="lbl veh-label">Sedan</span><span class="amt" data-prices="75,90,100">$75</span></div>
+        <div class="bigprice"><span class="lbl veh-label">Sedan</span><span class="amt" data-svc="quick" data-prices="75,90,100">$75</span></div>
       </article>
     </div>
   </div>
@@ -465,12 +480,12 @@ footer img{height:26px;filter:invert(1) brightness(2)}
     <h2 class="rv">Finish it off</h2>
     <p class="lede rv rv-d1">Stack any of these onto a package or à la carte service.</p>
     <div class="addons">
-      <div class="addon rv"><span class="ic"><svg aria-hidden="true"><use href="#i-smell"/></svg></span><span class="nm">Odor / smoke elimination</span><b>$50</b></div>
-      <div class="addon rv"><span class="ic"><svg aria-hidden="true"><use href="#i-stain"/></svg></span><span class="nm">Stain removal</span><b>$35–$100</b></div>
-      <div class="addon rv rv-d1"><span class="ic"><svg aria-hidden="true"><use href="#i-light"/></svg></span><span class="nm">Headlight restoration</span><b>$60</b></div>
-      <div class="addon rv rv-d1"><span class="ic"><svg aria-hidden="true"><use href="#i-engine"/></svg></span><span class="nm">Engine bay cleaning</span><b>$75</b></div>
-      <div class="addon rv rv-d2"><span class="ic"><svg aria-hidden="true"><use href="#i-pet"/></svg></span><span class="nm">Pet hair removal</span><b>$25–$50</b></div>
-      <div class="addon rv rv-d2"><span class="ic"><svg aria-hidden="true"><use href="#i-clay"/></svg></span><span class="nm">Clay bar treatment</span><b>$75–$100</b></div>
+      <div class="addon rv"><span class="ic"><svg aria-hidden="true"><use href="#i-smell"/></svg></span><span class="nm">Odor / smoke elimination</span><b data-add="odor">$50</b></div>
+      <div class="addon rv"><span class="ic"><svg aria-hidden="true"><use href="#i-stain"/></svg></span><span class="nm">Stain removal</span><b data-add="stain">$35–$100</b></div>
+      <div class="addon rv rv-d1"><span class="ic"><svg aria-hidden="true"><use href="#i-light"/></svg></span><span class="nm">Headlight restoration</span><b data-add="headlight">$60</b></div>
+      <div class="addon rv rv-d1"><span class="ic"><svg aria-hidden="true"><use href="#i-engine"/></svg></span><span class="nm">Engine bay cleaning</span><b data-add="engine">$75</b></div>
+      <div class="addon rv rv-d2"><span class="ic"><svg aria-hidden="true"><use href="#i-pet"/></svg></span><span class="nm">Pet hair removal</span><b data-add="pet">$25–$50</b></div>
+      <div class="addon rv rv-d2"><span class="ic"><svg aria-hidden="true"><use href="#i-clay"/></svg></span><span class="nm">Clay bar treatment</span><b data-add="clay">$75–$100</b></div>
       <div class="addon rv rv-d3"><span class="ic"><svg aria-hidden="true"><use href="#i-hazard"/></svg></span><span class="nm">Hazardous conditions</span><b>Price varies</b></div>
     </div>
 
@@ -551,11 +566,20 @@ footer img{height:26px;filter:invert(1) brightness(2)}
   </div>
 </section>
 
+<section id="results" hidden>
+  <div class="wrap">
+    <p class="kicker">Before &amp; After</p>
+    <h2>The difference speaks for itself</h2>
+    <p class="lede">Real cars we've detailed. Drag the slider to compare.</p>
+    <div class="ba-grid" id="ba-grid"></div>
+  </div>
+</section>
+
 <section class="dark">
   <div class="wrap">
     <p class="kicker rv">Testimonials</p>
     <h2 class="rv">Word around town</h2>
-    <div class="t-grid">
+    <div class="t-grid" id="t-grid">
       <blockquote class="t-card rv">
         <span class="qmark" aria-hidden="true">"</span>
         <p>I didn't realize how rough my car's paint had become until the clay bar treatment. The difference was insane — smoother than when I bought it. Right on time, done within an hour, flawless results.</p>
@@ -670,9 +694,9 @@ footer img{height:26px;filter:invert(1) brightness(2)}
     <h4>What we collect</h4>
     <p>When you submit the inquiry form, we collect the information you provide — your name, phone number, and, if you choose to share them, your email address and details about your vehicle and the service you want. We do not collect payment information through this website.</p>
     <h4>How we use it</h4>
-    <p>We use your information for one purpose: to respond to your inquiry and schedule your detailing service. Form submissions are delivered to us by email through Formspree, a third-party form provider. We do not sell, rent, or share your information with anyone for marketing purposes.</p>
+    <p>We use your information for one purpose: to respond to your inquiry and schedule your detailing service. Form submissions are delivered to us by email through Formspree, a third-party form provider, and saved in our private customer records (hosted on Cloudflare) so we can follow up and keep track of your service. We do not sell, rent, or share your information with anyone for marketing purposes.</p>
     <h4>Third-party services</h4>
-    <p>This site is hosted on Cloudflare Pages and uses Formspree to process form submissions. Each provider handles your data under its own privacy policy. We load fonts from Google Fonts, which may receive standard request information such as your IP address.</p>
+    <p>This site is hosted on Cloudflare Pages, which also stores our inquiry and service records, and uses Formspree to process form submissions. Each provider handles your data under its own privacy policy. We load fonts from Google Fonts, which may receive standard request information such as your IP address.</p>
     <h4>Cookies &amp; tracking</h4>
     <p>This website does not use advertising cookies or tracking pixels.</p>
     <h4>Your choices</h4>
@@ -856,6 +880,57 @@ footer img{height:26px;filter:invert(1) brightness(2)}
 
   render();
 
+  /* ---------- live content from the back office (prices, testimonials, photos) ---------- */
+  function escHtml(t){ return String(t == null ? '' : t).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function applyPricing(pr){
+    if(!pr || !pr.services || !pr.addons) return;
+    Object.keys(SVC).forEach(function(k){ if(pr.services[k]) SVC[k].p = pr.services[k].p; });
+    Object.keys(ADD).forEach(function(k){ if(pr.addons[k]){ ADD[k].lo = pr.addons[k].lo; ADD[k].hi = pr.addons[k].hi; } });
+    document.querySelectorAll('.amt[data-svc]').forEach(function(a){
+      var svc = SVC[a.dataset.svc]; if(svc) a.dataset.prices = svc.p.join(',');
+    });
+    document.querySelectorAll('[data-add]').forEach(function(b){
+      var a = ADD[b.dataset.add]; if(a) b.textContent = a.lo === a.hi ? '$'+a.lo : '$'+a.lo+'–$'+a.hi;
+    });
+    document.querySelectorAll('#q-add .chip').forEach(function(c){
+      var a = ADD[c.dataset.a], sm = c.querySelector('small');
+      if(a && sm) sm.textContent = a.lo === a.hi ? '$'+a.lo : 'from $'+a.lo;
+    });
+    var on = document.querySelector('.vbtn.on');
+    var idx = VEH_IDX[on ? on.dataset.v : 'sedan'];
+    document.querySelectorAll('.amt[data-prices]').forEach(function(a){ a.textContent = '$'+a.dataset.prices.split(',')[idx]; });
+    render();
+  }
+  function applyTestimonials(list){
+    if(!list || !list.length) return;
+    document.getElementById('t-grid').innerHTML = list.map(function(t, i){
+      var n = Math.max(1, Math.min(5, t.stars || 5));
+      return '<blockquote class="t-card rv in'+(i % 3 ? ' rv-d'+(i % 3) : '')+'"><span class="qmark" aria-hidden="true">"</span>'+
+        '<p>'+escHtml(t.text)+'</p><cite><span class="stars" aria-label="'+n+' stars">'+'★★★★★'.slice(0, n)+'</span> '+escHtml(t.name)+'</cite></blockquote>';
+    }).join('');
+  }
+  function applyPhotos(list){
+    if(!list || !list.length) return;
+    var grid = document.getElementById('ba-grid');
+    grid.innerHTML = list.map(function(p){
+      return '<figure class="ba"><div class="ba-frame" style="--pos:50%">'+
+        '<img src="'+escHtml(p.before)+'" alt="Before'+(p.title ? ': '+escHtml(p.title) : '')+'" loading="lazy">'+
+        '<img class="ba-after" src="'+escHtml(p.after)+'" alt="After'+(p.title ? ': '+escHtml(p.title) : '')+'" loading="lazy">'+
+        '<span class="ba-tag b">Before</span><span class="ba-tag a">After</span>'+
+        '<span class="ba-line"><span class="ba-knob" aria-hidden="true">⇆</span></span>'+
+        '<input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Slide to compare before and after">'+
+        '</div>'+(p.title || p.caption ? '<figcaption>'+(p.title ? '<b>'+escHtml(p.title)+'</b>' : '')+(p.caption ? '<span>'+escHtml(p.caption)+'</span>' : '')+'</figcaption>' : '')+'</figure>';
+    }).join('');
+    grid.querySelectorAll('.ba-range').forEach(function(r){
+      r.addEventListener('input', function(){ r.parentNode.style.setProperty('--pos', r.value+'%'); });
+    });
+    document.getElementById('results').hidden = false;
+  }
+  fetch('/api/site').then(function(r){ return r.ok ? r.json() : null; }).then(function(d){
+    if(!d) return;
+    applyPricing(d.pricing); applyTestimonials(d.testimonials); applyPhotos(d.photos);
+  }).catch(function(){ /* keep the built-in content */ });
+
   /* ---------- quote → inquiry form bridge ---------- */
   document.getElementById('q-send').addEventListener('click', function(){
     if(!lastQuote) return;
@@ -873,8 +948,9 @@ footer img{height:26px;filter:invert(1) brightness(2)}
     /* anchor link handles the scroll to #book */
   });
 
-  /* ---------- inquiry form (Formspree) ---------- */
+  /* ---------- inquiry form (Formspree + back office) ---------- */
   var FORM_ENDPOINT = 'https://formspree.io/f/maqzazkw'; /* Clutch & Clean inquiries → Clutchandcleandetailers@gmail.com */
+  var LEADS_ENDPOINT = '/api/leads'; /* back office lead tracker (Cloudflare Pages Function + D1) */
   var form = document.getElementById('inquiry'),
       status = document.getElementById('f-status'),
       submitBtn = document.getElementById('f-submit');
@@ -893,15 +969,21 @@ footer img{height:26px;filter:invert(1) brightness(2)}
     data.append('_subject', 'New detail inquiry — ' + name);
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending…';
-    fetch(FORM_ENDPOINT, {
-      method:'POST',
-      body:data,
-      headers:{'Accept':'application/json'}
-    }).then(function(r){
-      if(r.ok){
-        document.getElementById('form-wrap').hidden = true;
-        document.getElementById('form-done').hidden = false;
-      } else { throw new Error('bad status'); }
+    /* Send to Formspree (email) and our own back office (/admin) in parallel;
+       the inquiry counts as delivered if either one accepts it. */
+    function post(url, body){
+      return fetch(url, { method:'POST', body:body, headers:{'Accept':'application/json'} })
+        .then(function(r){ if(!r.ok) throw new Error('bad status'); });
+    }
+    var sends = [post(FORM_ENDPOINT, data), post(LEADS_ENDPOINT, new FormData(form))];
+    var failed = 0;
+    new Promise(function(resolve, reject){
+      sends.forEach(function(p){
+        p.then(resolve, function(){ if(++failed === sends.length) reject(); });
+      });
+    }).then(function(){
+      document.getElementById('form-wrap').hidden = true;
+      document.getElementById('form-done').hidden = false;
     }).catch(function(){
       status.textContent = "Couldn't send right now — please call or text 641-525-2532 instead.";
       status.classList.add('err');
