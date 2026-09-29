@@ -15,14 +15,10 @@ Repo: https://github.com/krugerco/clutch-and-clean
    GitHub → Settings → Developer settings → Personal access tokens.
    Or run `gh auth login` to authenticate through the browser.
 
-## One-time: connect Cloudflare Pages
-Cloudflare dashboard → Workers & Pages → Create → Pages → Connect to Git →
-select the `clutch-and-clean` repo. Build settings:
-- Framework preset: **None**
-- Build command: *(leave blank)*
-- Build output directory: `/`
-
-Save and Deploy. After this, every `git push` to `main` auto-deploys.
+## Cloudflare (already connected)
+The repo is connected to a Cloudflare **Worker** named `clutch-and-clean` with Workers Builds
+(Cloudflare dashboard → Workers & Pages → clutch-and-clean → Settings → Build). Deploy settings
+come from `wrangler.jsonc` in the repo. Every `git push` to `main` auto-deploys.
 
 ## Everyday updates
 ```bash
@@ -45,4 +41,5 @@ Until that link is clicked, inquiries will NOT be delivered. After it's
 confirmed, every lead arrives with the subject "New detail inquiry — [name]".
 
 ## Back office (/admin)
-Needs a one-time D1 database + password setup in Cloudflare. Follow [BACKEND.md](BACKEND.md).
+The database and photo storage are already set up and wired in `wrangler.jsonc`.
+See [BACKEND.md](BACKEND.md) for signing in, the PIN and optional phone notifications.

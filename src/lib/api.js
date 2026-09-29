@@ -1,4 +1,4 @@
-/* Shared helpers for the Pages Functions under /functions. */
+/* Shared helpers for the back office API (see src/worker.js). */
 
 export function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
@@ -168,7 +168,7 @@ export function parseId(params) {
 /* Wraps a handler so thrown Responses (validation errors) are returned as-is. */
 export function handle(fn) {
   return async (ctx) => {
-    if (!ctx.env.DB) return error('Database not configured: bind a D1 database named DB to this Pages project.', 500);
+    if (!ctx.env.DB) return error('Database not configured: bind a D1 database named DB to this Worker.', 500);
     try {
       return await fn(ctx);
     } catch (e) {

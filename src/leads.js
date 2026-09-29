@@ -1,6 +1,6 @@
 /* Public endpoint: the website inquiry form posts here (alongside Formspree).
    Saves the lead to D1 and, if NTFY_TOPIC is set, pushes a phone notification. */
-import { json, error, readBody, clean, insertRow, handle } from '../../lib/api.js';
+import { json, error, readBody, clean, insertRow, handle } from './lib/api.js';
 
 export const onRequestPost = handle(async ({ request, env, waitUntil }) => {
   const body = await readBody(request);

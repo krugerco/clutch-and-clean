@@ -1,0 +1,12 @@
+# Files that are part of the repo but must not be served as public web pages.
+.git
+.gitignore
+.assetsignore
+wrangler.jsonc
+wrangler.toml
+.dev.vars
+.wrangler
+node_modules
+src
+migrations
+*.md

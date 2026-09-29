@@ -22,6 +22,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 header{background:var(--ink);color:#fff;padding:12px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 header img{height:40px}
 header h1{font-family:var(--display);font-size:24px;letter-spacing:.02em;text-transform:uppercase;flex:1}
+@media (max-width:560px){.hide-sm{display:none}}
 header button{background:none;border:1px solid #444;color:#ccc;border-radius:6px;padding:5px 10px;cursor:pointer}
 nav{display:flex;gap:4px;padding:0 16px;background:var(--ink);overflow-x:auto}
 nav button{background:none;border:0;color:#aaa;padding:10px 14px;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
@@ -84,9 +85,36 @@ input[type=checkbox]{width:auto}
 #login{max-width:360px;margin:12vh auto;text-align:center}
 #login img{height:70px;margin:0 auto 12px}
 #login input{margin:12px 0}
+#login .pin{font-size:28px;text-align:center;letter-spacing:.4em;padding:12px}
 .err{color:var(--red);font-size:13px;min-height:18px}
 .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:9px 16px;border-radius:8px;font-size:14px;z-index:99}
 .empty{padding:30px;text-align:center;color:var(--gray)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 16px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:20px;padding:7px 13px;font-weight:600;cursor:pointer;font-size:14px}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip small{font-weight:500;opacity:.7}
+.qgrid{display:grid;grid-template-columns:1.4fr 1fr;gap:14px;align-items:start}
+@media (max-width:760px){.qgrid{grid-template-columns:1fr}}
+.qline{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px dashed var(--line);align-items:center}
+.qline input{width:90px;text-align:right;padding:4px 6px}
+.qtotal{display:flex;justify-content:space-between;align-items:baseline;margin-top:10px}
+.qtotal .n{font-family:var(--display);font-size:44px}
+.step{font-size:12px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.06em}
+.ptable input{width:90px;text-align:right}
+.ptable td,.ptable th{padding:6px 8px}
+.tm{display:grid;grid-template-columns:1fr 180px 120px auto;gap:8px;align-items:start;margin-bottom:10px}
+@media (max-width:760px){.tm{grid-template-columns:1fr 1fr}.tm textarea{grid-column:1/-1}}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.pcard{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.pcard .pair{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:#000}
+.pcard .pair img{width:100%;height:150px;object-fit:cover;display:block}
+.pcard .body{padding:10px}
+.pcard .body input{margin-bottom:6px}
+.pcard.hid{opacity:.55}
+.drop{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.drop label.pick{border:2px dashed var(--line);border-radius:10px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer;background:#fafafa;overflow:hidden;position:relative;color:var(--gray);font-size:15px;margin:0}
+.drop label.pick img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.drop input[type=file]{display:none}
 /* printable invoice */
 #invoice{display:none}
 @media print{
@@ -106,10 +134,11 @@ input[type=checkbox]{width:auto}
 
 <div id="login" hidden>
   <img src="../assets/logo.png" alt="Clutch and Clean Detailing">
-  <h2>Back Office</h2>
+  <h2>Hey Reed 👋</h2>
+  <p class="muted">Enter your PIN to open the back office.</p>
   <form id="login-form">
-    <input type="password" id="pw" placeholder="Admin password" autocomplete="current-password" required>
-    <button class="btn" style="width:100%">Sign in</button>
+    <input type="password" id="pw" class="pin" placeholder="••••••" inputmode="numeric" autocomplete="current-password" required autofocus>
+    <button class="btn" style="width:100%;padding:12px">Sign in</button>
     <p class="err" id="login-err"></p>
   </form>
 </div>
@@ -117,7 +146,7 @@ input[type=checkbox]{width:auto}
 <div id="app" hidden>
   <header>
     <img src="../assets/badge.png" alt="">
-    <h1>Back Office</h1>
+    <h1>Back Office <span class="muted hide-sm" style="font-family:var(--body);font-size:14px;text-transform:none;color:#aaa">· Reed</span></h1>
     <button id="logout">Sign out</button>
   </header>
   <nav>
@@ -125,6 +154,9 @@ input[type=checkbox]{width:auto}
     <button data-tab="leads">Leads<span class="badge" id="new-badge" hidden></span></button>
     <button data-tab="jobs">Jobs &amp; Invoices</button>
     <button data-tab="expenses">Expenses</button>
+    <button data-tab="quote">Quote</button>
+    <button data-tab="photos">Photos</button>
+    <button data-tab="site">Website</button>
   </nav>
   <main>
     <!-- DASHBOARD -->
@@ -183,6 +215,92 @@ input[type=checkbox]{width:auto}
         <thead><tr><th>Date</th><th>Category</th><th>Vendor</th><th>Description</th><th class="num">Amount</th></tr></thead>
         <tbody id="exp-rows"></tbody>
       </table></div>
+    </section>
+
+    <!-- QUOTE CALCULATOR -->
+    <section data-view="quote" hidden>
+      <div class="bar"><h2 class="grow">Quote calculator</h2></div>
+      <div class="qgrid">
+        <div class="card">
+          <p class="step">1 · Vehicle</p><div class="chips" id="cq-veh"></div>
+          <p class="step">2 · Service</p><div class="chips" id="cq-svc"></div>
+          <p class="step">3 · Add-ons</p><div class="chips" id="cq-add"></div>
+          <div class="fgrid" style="margin-bottom:0">
+            <div><label>Adjustment ($, use − for discount)</label><input id="cq-adj" type="number" step="1" inputmode="numeric" placeholder="0"></div>
+            <div><label>Reason</label><input id="cq-adj-why" placeholder="e.g. heavy pet hair, repeat customer"></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Quote</h3>
+          <div id="cq-lines"></div>
+          <div class="qtotal"><b>Total</b><span class="n" id="cq-total">$0</span></div>
+          <div class="dlg-acts" style="justify-content:stretch;margin-top:12px">
+            <button class="btn ghost" id="cq-copy" style="flex:1">Copy text</button>
+            <button class="btn" id="cq-job" style="flex:1">Make it a job →</button>
+          </div>
+          <p class="muted" style="margin-top:8px">Uses the same prices as the website. Change them under Website.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHOTOS -->
+    <section data-view="photos" hidden>
+      <div class="bar"><h2 class="grow">Before &amp; After photos</h2></div>
+      <form class="card" id="ph-form" style="margin-bottom:16px">
+        <h3>Add a new pair</h3>
+        <p class="muted">Take a photo or pick one from your phone, tablet or computer. Photos are shrunk automatically before upload.</p>
+        <div class="drop">
+          <label class="pick" for="ph-before"><span>📷 Tap to add<br><b>BEFORE</b></span></label>
+          <label class="pick" for="ph-after"><span>📷 Tap to add<br><b>AFTER</b></span></label>
+          <input type="file" id="ph-before" accept="image/*">
+          <input type="file" id="ph-after" accept="image/*">
+        </div>
+        <div class="fgrid" style="margin-top:0">
+          <div><label>Title</label><input id="ph-title" placeholder="e.g. 2015 F-150 interior" maxlength="80"></div>
+          <div><label>Caption</label><input id="ph-caption" placeholder="e.g. Gold package + pet hair removal" maxlength="300"></div>
+        </div>
+        <p class="err" id="ph-err"></p>
+        <button class="btn" id="ph-save">Upload to website</button>
+      </form>
+      <div class="pgrid" id="ph-list"></div>
+    </section>
+
+    <!-- WEBSITE CONTENT -->
+    <section data-view="site" hidden>
+      <div class="bar"><h2 class="grow">Website</h2><a class="btn ghost" href="/" target="_blank">View site ↗</a></div>
+      <div class="card" style="margin-bottom:16px">
+        <h3>Prices</h3>
+        <p class="muted">Whole dollars. These update the packages, à la carte, add-ons and the quote builder on the site.</p>
+        <div class="tbl-wrap" style="margin-top:10px"><table class="ptable">
+          <thead><tr><th>Service</th><th class="num">Sedan</th><th class="num">Mid-Size SUV</th><th class="num">Large SUV / Truck</th></tr></thead>
+          <tbody id="pr-svc"></tbody>
+        </table></div>
+        <div class="tbl-wrap" style="margin-top:10px"><table class="ptable">
+          <thead><tr><th>Add-on</th><th class="num">From</th><th class="num">Up to</th></tr></thead>
+          <tbody id="pr-add"></tbody>
+        </table></div>
+        <p class="muted" style="margin-top:6px">Set "From" and "Up to" the same for a flat price.</p>
+        <p class="err" id="pr-err"></p>
+        <button class="btn" id="pr-save">Save prices</button>
+      </div>
+      <div class="card" style="margin-bottom:16px">
+        <h3>Testimonials</h3>
+        <p class="muted">The customer quotes shown on the site. Up to 12.</p>
+        <div id="tm-list" style="margin-top:10px"></div>
+        <p class="err" id="tm-err"></p>
+        <div class="dlg-acts" style="justify-content:flex-start">
+          <button class="btn ghost" id="tm-add">+ Add testimonial</button>
+          <button class="btn" id="tm-save">Save testimonials</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Sign-in PIN</h3>
+        <p class="muted">4–8 digits. You'll stay signed in on this device.</p>
+        <div class="fgrid" style="max-width:420px"><div><label>New PIN</label><input id="pin-new" type="password" inputmode="numeric" maxlength="8" autocomplete="new-password"></div>
+        <div><label>Type it again</label><input id="pin-new2" type="password" inputmode="numeric" maxlength="8" autocomplete="new-password"></div></div>
+        <p class="err" id="pin-err"></p>
+        <button class="btn" id="pin-save">Change PIN</button>
+      </div>
     </section>
   </main>
 </div>
@@ -302,7 +420,7 @@ input[type=checkbox]{width:auto}
     opts.headers = headers;
     return fetch('/api/admin/' + path, opts).then(function(r){
       return r.json().catch(function(){ return {}; }).then(function(d){
-        if(r.status === 401){ showLogin('Wrong password.'); throw new Error('Unauthorized'); }
+        if(r.status === 401 || r.status === 429){ showLogin(d.error || 'Wrong PIN.'); throw new Error('Unauthorized'); }
         if(!r.ok) throw new Error(d.error || ('Request failed ('+r.status+')'));
         return d;
       });
@@ -623,6 +741,205 @@ input[type=checkbox]{width:auto}
       ['Vendor', function(x){ return x.vendor; }], ['Description', function(x){ return x.description; }],
       ['Amount', function(x){ return d(x.amount_cents); }], ['Notes', function(x){ return x.notes; }]
     ]);
+  });
+
+  /* ---------- prices (shared by quote calculator + website editor) ---------- */
+  var VEHS = [['sedan','Sedan'],['mid','Mid-Size SUV'],['large','Large SUV / Truck']];
+  var pricing = null;
+  function loadPricing(){ return api('pricing').then(function(p){ pricing = p; return p; }); }
+
+  /* ---------- quote calculator ---------- */
+  var cq = { veh:0, svc:'silver', adds:{}, amounts:{} };
+  function chipRow(el, items, isOn, onClick){
+    el.innerHTML = items.map(function(it){ return '<button type="button" class="chip'+(isOn(it[0]) ? ' on' : '')+'" data-k="'+it[0]+'">'+it[1]+'</button>'; }).join('');
+    $$('.chip', el).forEach(function(c){ c.addEventListener('click', function(){ onClick(c.dataset.k); drawQuote(); }); });
+  }
+  function drawQuote(){
+    var P = pricing;
+    chipRow($('#cq-veh'), VEHS.map(function(v, i){ return [String(i), v[1]]; }), function(k){ return +k === cq.veh; }, function(k){ cq.veh = +k; });
+    chipRow($('#cq-svc'), Object.keys(P.services).map(function(k){ return [k, esc(P.services[k].name)+' <small>$'+P.services[k].p[cq.veh]+'</small>']; }),
+      function(k){ return k === cq.svc; }, function(k){ cq.svc = k; });
+    chipRow($('#cq-add'), Object.keys(P.addons).map(function(k){ var a = P.addons[k]; return [k, esc(a.name)+' <small>'+(a.lo === a.hi ? '$'+a.lo : '$'+a.lo+'–'+a.hi)+'</small>']; }),
+      function(k){ return !!cq.adds[k]; }, function(k){ cq.adds[k] = !cq.adds[k]; if(cq.adds[k] && cq.amounts[k] == null) cq.amounts[k] = P.addons[k].lo; });
+    var svc = P.services[cq.svc], total = svc.p[cq.veh];
+    var html = '<div class="qline muted"><span>'+VEHS[cq.veh][1]+'</span></div><div class="qline"><span>'+esc(svc.name)+'</span><b>$'+svc.p[cq.veh]+'</b></div>';
+    Object.keys(cq.adds).forEach(function(k){
+      if(!cq.adds[k]) return;
+      var a = P.addons[k], amt = cq.amounts[k];
+      total += amt;
+      html += '<div class="qline"><span>+ '+esc(a.name)+'</span>'+(a.lo === a.hi ? '<b>$'+amt+'</b>'
+        : '<input type="number" data-amt="'+k+'" value="'+amt+'" min="0" inputmode="numeric" title="$'+a.lo+'–$'+a.hi+'">')+'</div>';
+    });
+    var adj = parseInt($('#cq-adj').value, 10) || 0;
+    if(adj) html += '<div class="qline"><span>'+(adj > 0 ? 'Adjustment' : 'Discount')+($('#cq-adj-why').value ? ' · '+esc($('#cq-adj-why').value) : '')+'</span><b>'+(adj > 0 ? '+' : '−')+'$'+Math.abs(adj)+'</b></div>';
+    total = Math.max(0, total + adj);
+    $('#cq-lines').innerHTML = html;
+    $('#cq-total').textContent = '$'+total;
+    $$('#cq-lines [data-amt]').forEach(function(inp){
+      inp.addEventListener('change', function(){ cq.amounts[inp.dataset.amt] = Math.max(0, parseInt(inp.value, 10) || 0); drawQuote(); });
+    });
+    cq.total = total;
+  }
+  function quoteParts(){
+    return Object.keys(cq.adds).filter(function(k){ return cq.adds[k]; }).map(function(k){ return pricing.addons[k].name; });
+  }
+  $('#cq-adj').addEventListener('input', drawQuote);
+  $('#cq-adj-why').addEventListener('input', drawQuote);
+  loaders.quote = function(){ (pricing ? Promise.resolve() : loadPricing()).then(drawQuote).catch(function(e){ if(e.message !== 'Unauthorized') toast(e.message); }); };
+  $('#cq-copy').addEventListener('click', function(){
+    var adds = quoteParts();
+    var txt = 'Clutch & Clean quote\n' + VEHS[cq.veh][1] + ' · ' + pricing.services[cq.svc].name +
+      (adds.length ? '\nAdd-ons: ' + adds.join(', ') : '') + '\nTotal: $' + cq.total + '\n— Reed, 641-525-2532';
+    (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(function(){ toast('Quote copied'); }, function(){ prompt('Copy this quote:', txt); });
+  });
+  $('#cq-job').addEventListener('click', function(){
+    var adj = parseInt($('#cq-adj').value, 10) || 0;
+    openJob({ status:'scheduled', job_date: today(), vehicle: VEHS[cq.veh][1], service: pricing.services[cq.svc].name,
+      addons: quoteParts().join(', '), price_cents: cq.total * 100,
+      notes: adj ? ((adj > 0 ? 'Adjustment ' : 'Discount ') + '$' + Math.abs(adj) + ($('#cq-adj-why').value ? ': ' + $('#cq-adj-why').value : '')) : '' });
+  });
+
+  /* ---------- website: prices ---------- */
+  function drawPricing(){
+    var P = pricing;
+    $('#pr-svc').innerHTML = Object.keys(P.services).map(function(k){
+      return '<tr><td>'+esc(P.services[k].name)+'</td>'+P.services[k].p.map(function(v, i){
+        return '<td class="num"><input type="number" min="0" step="1" inputmode="numeric" data-svc="'+k+'" data-i="'+i+'" value="'+v+'"></td>'; }).join('')+'</tr>';
+    }).join('');
+    $('#pr-add').innerHTML = Object.keys(P.addons).map(function(k){
+      var a = P.addons[k];
+      return '<tr><td>'+esc(a.name)+'</td><td class="num"><input type="number" min="0" inputmode="numeric" data-add="'+k+'" data-f="lo" value="'+a.lo+'"></td>'+
+        '<td class="num"><input type="number" min="0" inputmode="numeric" data-add="'+k+'" data-f="hi" value="'+a.hi+'"></td></tr>';
+    }).join('');
+  }
+  $('#pr-save').addEventListener('click', function(){
+    var P = JSON.parse(JSON.stringify(pricing));
+    $$('#pr-svc input').forEach(function(i){ P.services[i.dataset.svc].p[+i.dataset.i] = Number(i.value); });
+    $$('#pr-add input').forEach(function(i){ P.addons[i.dataset.add][i.dataset.f] = Number(i.value); });
+    $('#pr-err').textContent = '';
+    api('pricing', { method:'PUT', body:P }).then(function(p){ pricing = p; drawPricing(); toast('Prices updated on the website'); })
+      .catch(function(e){ $('#pr-err').textContent = e.message; });
+  });
+
+  /* ---------- website: testimonials ---------- */
+  var tms = [];
+  function drawTms(){
+    $('#tm-list').innerHTML = tms.map(function(t, i){
+      return '<div class="tm" data-i="'+i+'"><textarea data-f="text" placeholder="What they said">'+esc(t.text)+'</textarea>'+
+        '<input data-f="name" placeholder="Name (e.g. Sarah M.)" value="'+esc(t.name)+'">'+
+        '<select data-f="stars">'+[5,4,3,2,1].map(function(n){ return '<option value="'+n+'"'+(n == t.stars ? ' selected' : '')+'>'+'★★★★★'.slice(0, n)+'</option>'; }).join('')+'</select>'+
+        '<button type="button" class="btn ghost sm" data-del="'+i+'">Remove</button></div>';
+    }).join('') || '<p class="muted">No testimonials. The section will show the built-in ones.</p>';
+  }
+  function readTms(){
+    return $$('#tm-list .tm').map(function(row){
+      return { text: $('[data-f=text]', row).value, name: $('[data-f=name]', row).value, stars: +$('[data-f=stars]', row).value };
+    });
+  }
+  $('#tm-list').addEventListener('click', function(e){
+    var b = e.target.closest('[data-del]'); if(!b) return;
+    tms = readTms(); tms.splice(+b.dataset.del, 1); drawTms();
+  });
+  $('#tm-add').addEventListener('click', function(){ tms = readTms(); tms.push({ text:'', name:'', stars:5 }); drawTms(); $('#tm-list .tm:last-child textarea').focus(); });
+  $('#tm-save').addEventListener('click', function(){
+    $('#tm-err').textContent = '';
+    api('testimonials', { method:'PUT', body: readTms() }).then(function(t){ tms = t; drawTms(); toast('Testimonials updated'); })
+      .catch(function(e){ $('#tm-err').textContent = e.message; });
+  });
+
+  /* ---------- website: PIN ---------- */
+  $('#pin-save').addEventListener('click', function(){
+    var a = $('#pin-new').value, b = $('#pin-new2').value;
+    $('#pin-err').textContent = '';
+    if(!/^\d{4,8}$/.test(a)) { $('#pin-err').textContent = 'PIN must be 4 to 8 digits.'; return; }
+    if(a !== b) { $('#pin-err').textContent = "Those don't match."; return; }
+    api('pin', { method:'PUT', body:{ pin:a } }).then(function(){
+      token = a; try { localStorage.setItem(TOKEN_KEY, token); } catch(e){}
+      $('#pin-new').value = $('#pin-new2').value = ''; toast('PIN changed');
+    }).catch(function(e){ $('#pin-err').textContent = e.message; });
+  });
+
+  loaders.site = function(){
+    Promise.all([loadPricing(), api('testimonials')]).then(function(r){ drawPricing(); tms = r[1]; drawTms(); })
+      .catch(function(e){ if(e.message !== 'Unauthorized') toast(e.message); });
+  };
+
+  /* ---------- photos ---------- */
+  var picked = { before:null, after:null };
+  function shrink(file){
+    /* Resize to max 1600px and re-encode as JPEG so phone photos upload fast. */
+    return new Promise(function(resolve, reject){
+      var img = new Image(), url = URL.createObjectURL(file);
+      img.onload = function(){
+        var max = 1600, w = img.naturalWidth, h = img.naturalHeight, s = Math.min(1, max / Math.max(w, h));
+        var c = document.createElement('canvas'); c.width = Math.round(w * s); c.height = Math.round(h * s);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        URL.revokeObjectURL(url);
+        c.toBlob(function(b){ b ? resolve(b) : reject(new Error('Could not read that photo')); }, 'image/jpeg', 0.85);
+      };
+      img.onerror = function(){ URL.revokeObjectURL(url); reject(new Error("That file isn't a photo this browser can open")); };
+      img.src = url;
+    });
+  }
+  ['before','after'].forEach(function(which){
+    $('#ph-'+which).addEventListener('change', function(e){
+      var f = e.target.files[0]; if(!f) return;
+      var lbl = $('label[for=ph-'+which+']');
+      shrink(f).then(function(b){
+        picked[which] = b;
+        var old = $('img', lbl); if(old) URL.revokeObjectURL(old.src);
+        lbl.innerHTML = '<img alt=""><span></span>'; $('img', lbl).src = URL.createObjectURL(b);
+      }).catch(function(err){ $('#ph-err').textContent = err.message; });
+    });
+  });
+  $('#ph-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    $('#ph-err').textContent = '';
+    if(!picked.before || !picked.after){ $('#ph-err').textContent = 'Add both a before and an after photo.'; return; }
+    var fd = new FormData();
+    fd.append('before', picked.before, 'before.jpg'); fd.append('after', picked.after, 'after.jpg');
+    fd.append('title', $('#ph-title').value); fd.append('caption', $('#ph-caption').value);
+    var btn = $('#ph-save'); btn.disabled = true; btn.textContent = 'Uploading…';
+    fetch('/api/admin/photos', { method:'POST', body:fd, headers:{ 'Authorization':'Bearer '+token } })
+      .then(function(r){ return r.json().then(function(d){ if(!r.ok) throw new Error(d.error || 'Upload failed'); return d; }); })
+      .then(function(){
+        picked = { before:null, after:null };
+        $('#ph-form').reset();
+        $$('#ph-form label.pick').forEach(function(l, i){ l.innerHTML = '<span>📷 Tap to add<br><b>'+(i ? 'AFTER' : 'BEFORE')+'</b></span>'; });
+        toast('Photos are live on the website'); loaders.photos();
+      })
+      .catch(function(err){ $('#ph-err').textContent = err.message; })
+      .then(function(){ btn.disabled = false; btn.textContent = 'Upload to website'; });
+  });
+  var photoList = [];
+  loaders.photos = function(){
+    api('photos').then(function(list){
+      photoList = list;
+      $('#ph-list').innerHTML = list.length ? list.map(function(p, i){
+        return '<div class="pcard'+(p.visible ? '' : ' hid')+'" data-id="'+p.id+'"><div class="pair"><img src="'+esc(p.before)+'" alt="Before"><img src="'+esc(p.after)+'" alt="After"></div>'+
+          '<div class="body"><input data-f="title" value="'+esc(p.title)+'" placeholder="Title"><input data-f="caption" value="'+esc(p.caption)+'" placeholder="Caption">'+
+          '<div class="dlg-acts" style="justify-content:flex-start">'+
+          '<button class="btn ghost sm" data-act="up"'+(i ? '' : ' disabled')+'>↑</button><button class="btn ghost sm" data-act="down"'+(i < list.length - 1 ? '' : ' disabled')+'>↓</button>'+
+          '<button class="btn ghost sm" data-act="vis">'+(p.visible ? 'Hide' : 'Show')+'</button>'+
+          '<button class="btn ghost sm" data-act="del">Delete</button></div></div></div>';
+      }).join('') : '<div class="card empty">No photos yet. Add your first before &amp; after above.</div>';
+    }).catch(function(e){ if(e.message !== 'Unauthorized') toast(e.message); });
+  };
+  $('#ph-list').addEventListener('change', function(e){
+    var inp = e.target.closest('input[data-f]'); if(!inp) return;
+    var id = inp.closest('.pcard').dataset.id, body = {}; body[inp.dataset.f] = inp.value;
+    api('photos/'+id, { method:'PATCH', body:body }).then(function(){ toast('Saved'); });
+  });
+  $('#ph-list').addEventListener('click', function(e){
+    var b = e.target.closest('button[data-act]'); if(!b) return;
+    var id = +b.closest('.pcard').dataset.id, idx = photoList.findIndex(function(p){ return p.id === id; }), p = photoList[idx];
+    if(b.dataset.act === 'vis') api('photos/'+id, { method:'PATCH', body:{ visible: !p.visible } }).then(loaders.photos);
+    else if(b.dataset.act === 'del'){ if(confirm('Delete this before & after from the website?')) api('photos/'+id, { method:'DELETE' }).then(loaders.photos); }
+    else {
+      var j = b.dataset.act === 'up' ? idx - 1 : idx + 1;
+      var order = photoList.slice(); order.splice(j, 0, order.splice(idx, 1)[0]);
+      Promise.all(order.map(function(q, n){ return api('photos/'+q.id, { method:'PATCH', body:{ sort:n } }); })).then(loaders.photos);
+    }
   });
 
   /* ---------- boot ---------- */

@@ -1,5 +1,5 @@
 /* Sales / cost / profit rollup for a date range: GET /api/admin/summary?from=YYYY-MM-DD&to=YYYY-MM-DD */
-import { json, handle } from '../../../lib/api.js';
+import { json, handle } from './lib/api.js';
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 

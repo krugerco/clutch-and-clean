@@ -1,0 +1,25 @@
+// Cloudflare Worker config: serves the static site and runs the back office API (src/worker.js).
+{
+  "name": "clutch-and-clean",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-01-01",
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*", "/photos/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "clutch-and-clean",
+      "database_id": "7cb4eeaf-5827-4cfb-9256-a49ded832dae"
+    }
+  ],
+  // Before & after photos uploaded from the back office.
+  "r2_buckets": [
+    { "binding": "PHOTOS", "bucket_name": "clutch-and-clean-photos" }
+  ],
+  // Keep variables set in the Cloudflare dashboard (NTFY_TOPIC, SITE_URL, ...) across deploys.
+  "keep_vars": true,
+  "observability": { "enabled": true }
+}
