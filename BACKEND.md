@@ -13,7 +13,7 @@ you tap **Sign out**, so on your phone, open it once and use **Add to Home Scree
   works as a backup key on the sign-in screen, and from there you can set a new PIN.
 
 ## Tabs
-- **Dashboard:** total sales, costs, profit, profit per hour, average ticket, unpaid balance,
+- **Dashboard:** **+ New job** and **Quote** buttons up top, then total sales, costs, profit, profit per hour, average ticket, unpaid balance,
   upcoming jobs, open leads and a mileage-deduction estimate, broken down by month, service and
   expense category.
 - **Leads:** every "Send an inquiry" form submission, which is also still emailed through
@@ -22,17 +22,29 @@ you tap **Sign out**, so on your phone, open it once and use **Add to Home Scree
 - **Jobs & Invoices:** log each cleaning (price, tip, supplies, other costs, miles, hours,
   paid/unpaid). Each job gets an invoice number automatically (`CC-2026-0001`), and
   **Print invoice** makes an invoice you can print or save as a PDF. Export to CSV.
+  - The job form has the **price builder** built in. Tap the vehicle size, service, add-ons,
+    extra time and extra charges, and **Charged** adds itself up from your prices. The invoice
+    then lists every line.
+  - Typing a price into **Charged** yourself switches auto-adding off, so your number is kept.
+    Tick **Add up automatically** to switch it back on.
+  - A saved job keeps the prices it was built with, even if you change your prices later.
 - **Expenses:** costs not tied to one job, like equipment, bulk chemicals, fuel and insurance.
   Export to CSV.
-- **Quote:** the same calculator as the website. Pick the vehicle, service and add-ons, set
-  exact amounts for ranged add-ons, and add a surcharge or discount. Then **Copy text** to paste
-  into a message, or **Make it a job**.
+- **Quote:** the price builder on its own. Pick the vehicle, service and add-ons, set exact
+  amounts for ranged add-ons, then add:
+  - **Extra time:** hours × your hourly rate (the rate can be changed per quote)
+  - **Extra charges:** one tap for your saved quick charges, or **+ Custom charge** for anything
+  - **Discount / adjustment** with a reason
+
+  Then **Copy text** to paste into a message, or **Make it a job**.
 - **Photos:** upload a before & after pair from any phone, tablet or computer (take a photo or
   pick from the library). Photos are shrunk automatically and appear on the website in a
   **Before & After** section with a drag slider. You can reorder, hide or delete them. The
   section stays hidden until you add the first pair.
 - **Website:** change every package, à la carte and add-on price (per vehicle size), and edit
-  the testimonials. Changes show on the site within about 30 seconds.
+  the testimonials. Changes show on the site within about 30 seconds. This is also where you set
+  your **extra time rate** and **quick charges**. Those are back office only and never shown on
+  the site.
 
 ## Phone notifications for new leads (optional)
 Uses [ntfy](https://ntfy.sh), which is free with no account needed.

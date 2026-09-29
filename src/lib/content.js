@@ -19,7 +19,18 @@ export const DEFAULT_PRICING = {
     pet:       { name: 'Pet hair removal',         lo: 25, hi: 50 },
     clay:      { name: 'Clay bar treatment',       lo: 75, hi: 100 },
   },
+  /* Back office only: extra time rate and one-tap extra charges for the price builder. */
+  extras: {
+    hourly: 50,
+    presets: [],
+  },
 };
+
+/* Older saved pricing may predate `extras`; fill in the defaults. */
+export async function getPricing(db) {
+  const p = await getSetting(db, 'pricing', DEFAULT_PRICING);
+  return { ...p, extras: { ...DEFAULT_PRICING.extras, ...(p.extras || {}) } };
+}
 
 export const DEFAULT_TESTIMONIALS = [
   { text: "I didn't realize how rough my car's paint had become until the clay bar treatment. The difference was insane — smoother than when I bought it. Right on time, done within an hour, flawless results.", name: 'Delighted Customer', stars: 5 },
@@ -61,6 +72,17 @@ function cleanPricing(input) {
     if (hi < lo) throw error(`${def.name}: the high price can't be below the low price`);
     out.addons[k] = { name: def.name, lo, hi };
   }
+  const ex = input?.extras || {};
+  const presets = Array.isArray(ex.presets) ? ex.presets : [];
+  if (presets.length > 20) throw error('Up to 20 extra charges');
+  out.extras = {
+    hourly: dollars(ex.hourly ?? DEFAULT_PRICING.extras.hourly, 'Extra time rate'),
+    presets: presets.map((x, i) => {
+      const label = String(x?.label || '').trim();
+      if (!label || label.length > 60) throw error(`Extra charge ${i + 1} needs a name (60 characters max)`);
+      return { label, amount: dollars(x.amount, label) };
+    }),
+  };
   return out;
 }
 
@@ -87,11 +109,12 @@ const photoOut = (p) => ({
 export const site = {
   onRequestGet: handle(async ({ env }) => {
     const [pricing, testimonials, photos] = await Promise.all([
-      getSetting(env.DB, 'pricing', DEFAULT_PRICING),
+      getPricing(env.DB),
       getSetting(env.DB, 'testimonials', DEFAULT_TESTIMONIALS),
       env.DB.prepare('SELECT * FROM photos WHERE visible = 1 ORDER BY sort, id DESC LIMIT 60').all(),
     ]);
-    const res = json({ pricing, testimonials, photos: photos.results.map(photoOut) });
+    const { extras, ...publicPricing } = pricing; // extra-charge presets are back office only
+    const res = json({ pricing: publicPricing, testimonials, photos: photos.results.map(photoOut) });
     res.headers.set('Cache-Control', 'public, max-age=30');
     return res;
   }),
@@ -112,7 +135,7 @@ export async function servePhoto(env, key) {
 /* ---------- admin ---------- */
 
 export const pricing = {
-  onRequestGet: handle(async ({ env }) => json(await getSetting(env.DB, 'pricing', DEFAULT_PRICING))),
+  onRequestGet: handle(async ({ env }) => json(await getPricing(env.DB))),
   onRequestPut: handle(async ({ env, request }) => {
     const value = cleanPricing(await readBody(request));
     await putSetting(env.DB, 'pricing', value);
